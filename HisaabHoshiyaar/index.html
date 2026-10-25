@@ -1,0 +1,2228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HisaabHoshiyaar</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800;900&family=Inter:wght@400;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Kannada:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hdr">
+  <a class="brand" id="brand"><span class="ol" data-s="34"></span><span>Hisaab<b>Hoshiyaar</b></span></a>
+  <div class="row">
+    <span id="apiStatusBadge" class="badge" title="FastAPI connection status">Connecting...</span>
+    <select id="lang" class="input" style="width:auto" aria-label="Language"><option value="en">English</option><option value="hi">हिंदी</option><option value="kn">ಕನ್ನಡ</option></select>
+    <button id="btnHeaderLogin" class="btn ghost sm" onclick="show('login')">Log In</button>
+    <button id="btnHeaderSignUp" class="btn sm" onclick="show('reg')">Sign Up</button>
+    <button id="logout" class="btn ghost sm hide" data-i="logout"></button>
+  </div>
+</header>
+
+<!-- LANDING -->
+<section id="v-landing" class="view hero">
+  <div>
+    <h1 class="big">Hisaab<b>Hoshiyaar</b></h1>
+    <p class="tag" data-i="tag"></p><p data-i="intro"></p>
+    <div class="row" style="gap:.8rem;margin-top:1rem;flex-wrap:wrap">
+      <button class="btn" onclick="show('login')" data-i="login"></button>
+      <button class="btn ghost" onclick="show('reg')" data-i="start"></button>
+    </div>
+    <p style="margin-top:1rem"><a onclick="show('reg')" data-i="newAcc"></a></p>
+  </div>
+  <div class="center"><span class="ol" data-s="220"></span><div class="bubble" data-i="olWelcome"></div></div>
+</section>
+
+<!-- LOGIN -->
+<section id="v-login" class="view auth hide">
+  <div class="say"><span class="ol" data-s="84"></span><div class="bubble" data-i="tag"></div></div>
+  <form class="card" id="loginForm" novalidate>
+    <h2 data-i="login"></h2><div class="demo" data-i="demo"></div>
+    <div class="field"><label for="l-em"><span data-i="email"></span> <span class="rq">*</span></label><input id="l-em" class="input" type="email" autocomplete="email"></div>
+    <div class="field"><label for="l-pw"><span data-i="pw"></span> <span class="rq">*</span></label><div class="pw"><input id="l-pw" class="input" type="password" autocomplete="current-password"><button type="button" class="eye" data-eye="l-pw" aria-label="Show/hide password">👁</button></div></div>
+    <div class="err" id="e-login" role="alert"></div>
+    <div class="between"><label><input type="checkbox" id="l-rem"> <span data-i="remember"></span></label><a id="btnForgotPw" style="cursor:pointer;text-decoration:underline;font-weight:700" data-i="forgot"></a></div>
+    <button class="btn block" data-i="login"></button>
+    <p class="center" style="margin-top:1rem"><a onclick="show('reg')" data-i="newAcc"></a></p>
+  </form>
+</section>
+
+<!-- REGISTER -->
+<section id="v-reg" class="view auth hide">
+  <div class="say"><span class="ol" data-s="84"></span><div class="bubble" data-i="olReg"></div></div>
+  <div class="card">
+    <div class="demo" data-i="demo"></div>
+    <b id="stepLbl"></b><div class="bar"><i id="barFill" style="width:50%"></i></div>
+    <div id="s1">
+      <div class="field"><label for="r-name"><span data-i="ownerName"></span> <span class="rq">*</span></label><input id="r-name" class="input" autocomplete="name"><div class="err" id="e-name"></div></div>
+      <div class="field"><label for="r-em"><span data-i="email"></span> <span class="rq">*</span></label><input id="r-em" class="input" type="email" autocomplete="email"><div class="err" id="e-em"></div></div>
+      <div class="field"><label for="r-pw"><span data-i="pw"></span> <span class="rq">*</span></label><div class="pw"><input id="r-pw" class="input" type="password" autocomplete="new-password"><button type="button" class="eye" data-eye="r-pw" aria-label="Show/hide password">👁</button></div><div class="err" id="e-pw"></div></div>
+      <div class="field"><label for="r-pw2"><span data-i="pw2"></span> <span class="rq">*</span></label><div class="pw"><input id="r-pw2" class="input" type="password" autocomplete="new-password"><button type="button" class="eye" data-eye="r-pw2" aria-label="Show/hide password">👁</button></div><div class="err" id="e-pw2"></div></div>
+      <div class="between"><a onclick="show('login')" data-i="haveAcc"></a><button class="btn" id="to2" data-i="next"></button></div>
+    </div>
+    <div id="s2" class="hide">
+      <div class="field"><label for="b-name"><span data-i="bizName"></span> <span class="rq">*</span></label><input id="b-name" class="input"><div class="err" id="e-bn"></div></div>
+      <div class="field"><label for="b-type"><span data-i="bizType"></span> <span class="rq">*</span></label><select id="b-type" class="input"></select><div class="err" id="e-bt"></div></div>
+      <div class="field"><label for="b-size"><span data-i="bizSize"></span> <span class="rq">*</span></label><select id="b-size" class="input"></select><div class="err" id="e-bs"></div></div>
+      <div class="two">
+        <div class="field"><label for="b-co" data-i="country"></label><select id="b-co" class="input"><option value="INR">India</option><option value="USD">United States</option><option value="GBP">United Kingdom</option><option value="AED">United Arab Emirates</option><option value="SGD">Singapore</option></select></div>
+        <div class="field"><label for="b-cur" data-i="currency"></label><select id="b-cur" class="input"><option>INR</option><option>USD</option><option>GBP</option><option>AED</option><option>SGD</option><option>EUR</option></select></div>
+      </div>
+      <div class="between"><button class="btn ghost" id="to1" data-i="back"></button><button class="btn" id="create" data-i="create"></button></div>
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS -->
+<section id="v-ok" class="view auth hide"><div class="card mint center"><span class="ol" data-s="140"></span><h2 data-i="welcome"></h2><p data-i="welcomeT"></p><button class="btn" onclick="enterApp()" data-i="open"></button></div></section>
+
+<!-- APP -->
+<section id="v-app" class="view wrap hide">
+  <div class="between">
+    <div><span data-i="biz"></span>: <b id="bizName"></b></div>
+    <button type="button" class="btn ghost sm" id="btnGoProfile" style="border-radius:var(--radius-pill);padding:.35rem .85rem" title="View & Edit Profile">👤 <span id="who"></span></button>
+  </div>
+  <nav class="tabs" aria-label="Main">
+    <button class="tab on" data-tab="ov" data-i="n1"></button><button class="tab" data-tab="mo" data-i="n2"></button><button class="tab" data-tab="si" data-i="n3"></button><button class="tab" data-tab="fx" data-i="n4"></button>
+    <button class="tab" data-tab="cu" data-i="n5"></button><button class="tab" data-tab="hl" data-i="n6"></button><button class="tab" data-tab="se" data-i="n7"></button><button class="tab" data-tab="pr" data-i="n8">👤 Profile</button>
+  </nav>
+
+  <div id="p-ov" class="panel grid">
+    <div class="between" style="margin:0">
+      <div class="dash-title-container" id="dashTitleContainer">
+        <h1 class="dash-title" id="dashTitle" style="margin:0" data-i="n1"></h1>
+        <div class="dash-title-underline" id="dashTitleUnderline"></div>
+      </div>
+      <div class="row">
+        <button class="btn sm" id="btnEditBalance" style="background:#fff;border-color:var(--black)">✎ Edit Balance</button>
+        <button class="btn sm" id="btnOpenAddTxOv" style="background:var(--teal);border-color:var(--black)">+ Add Transaction</button>
+        <span class="badge" data-i="sample"></span>
+      </div>
+    </div>
+    <div class="grid g4" id="ovCards"></div>
+    <div class="card alert" id="ovAlert"></div>
+    <div class="grid g2w">
+      <div class="card"><h3 data-i="chartT"></h3><div id="ovChart"></div><div class="legend" id="ovLeg"></div></div>
+      <div class="card mint"><div class="say"><span class="ol" id="ovOllie" data-s="100"></span><div class="bubble" id="ovMsg"></div></div></div>
+    </div>
+    <div class="card"><div class="between"><h3 data-i="upTx"></h3><a data-go="mo" data-i="viewAll"></a></div><ul class="list" id="ovList"></ul></div>
+  </div>
+
+  <div id="p-mo" class="panel grid hide">
+    <div class="between" style="margin:0">
+      <div>
+        <h1 style="margin:0" data-i="n2"></h1>
+        <p class="sub" style="margin:.2rem 0 0">Record and manage income, expenses, categories, and payment methods with live balance calculations.</p>
+      </div>
+      <div class="row">
+        <button class="btn" id="btnOpenAddTx" style="background:var(--teal);border-color:var(--teal)">＋ Add Transaction</button>
+        <button class="btn ghost sm" id="btnOpenAddIncome">＋ Income</button>
+        <button class="btn ghost sm" id="btnOpenAddExpense" style="border-color:var(--neg);color:var(--neg)">− Expense</button>
+      </div>
+    </div>
+    <div class="grid g4" id="moCards"></div>
+    <div class="card">
+      <div class="filters" style="grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto;">
+        <input id="f-q" class="input" type="search" placeholder="Search description or category..." aria-label="Search">
+        <select id="f-dir" class="input" aria-label="Direction"></select>
+        <select id="f-cat" class="input" aria-label="Category"><option value="">Category: All</option></select>
+        <select id="f-st" class="input" aria-label="Status"></select>
+        <select id="f-sort" class="input" aria-label="Sort"></select>
+        <button class="btn ghost sm" id="f-clear" data-i="clear"></button>
+      </div>
+      <div class="scroll"><table class="tbl"><thead id="moHead"></thead><tbody id="moBody"></tbody></table></div>
+      <p class="center sub hide" id="moEmpty" data-i="empty"></p>
+    </div>
+  </div>
+
+  <div id="p-si" class="panel hide">
+    <div class="grid g2s">
+      <section class="card">
+        <div class="say"><span class="ol" data-s="70"></span><div class="bubble" id="siMsg"></div></div>
+        <h3 data-i="cDelay"></h3>
+        <div class="field"><label for="s-inv" data-i="inv"></label><select id="s-inv" class="input"></select></div>
+        <div class="field"><label for="s-dl"><span data-i="extra"></span>: <b id="v-dl">0</b> <span data-i="days"></span></label><input id="s-dl" class="range" type="range" min="0" max="30" value="0"></div>
+        <h3 data-i="unexp"></h3>
+        <div class="two"><div class="field"><label for="s-ex" data-i="expAmt"></label><input id="s-ex" class="input" inputmode="numeric" placeholder="0"></div>
+        <div class="field"><label for="s-exd" data-i="expIn"></label><input id="s-exd" class="input" type="number" min="0" max="56" value="30"></div></div>
+        <div class="err" id="e-ex" role="alert"></div>
+        <h3 data-i="sales"></h3>
+        <div class="field"><label for="s-sp"><b id="v-sp">0</b>%</label><input id="s-sp" class="range" type="range" min="0" max="50" step="5" value="0"><div class="sub" data-i="salesH"></div></div>
+        <h3 data-i="supT"></h3>
+        <div class="field"><label for="s-sup" data-i="supPay"></label><select id="s-sup" class="input"></select></div>
+        <div class="field"><label for="s-sh"><span data-i="shift"></span>: <b id="v-sh">0</b> <span data-i="days"></span></label><input id="s-sh" class="range" type="range" min="0" max="60" value="0"></div>
+        <div class="chips" aria-label="Quick scenarios"><button class="chip" data-act="pre" data-n="1">Metro Mart pays 20 days late</button><button class="chip" data-act="pre" data-n="2">Sales drop 20%</button><button class="chip" data-act="pre" data-n="3">₹2,00,000 repair in 14 days</button><button class="chip" data-act="pre" data-n="4">Use predicted delays</button></div>
+        <label class="chk" style="margin:.6rem 0"><input type="checkbox" id="s-pred"> Predict each customer's delay from their payment history</label>
+        <div class="row"><button class="btn" id="apply" data-i="apply"></button><button class="btn ghost" id="reset" data-i="reset"></button></div>
+      </section>
+      <section>
+        <div class="card pred" id="siPred" aria-live="polite"></div>
+        <div class="grid g4" id="siCards" style="margin-top:1rem"></div>
+        <div class="card" style="margin-top:1rem"><h3 data-i="chartT"></h3><div id="siChart"></div><div class="legend" id="siLeg"></div><p class="sub center" data-i="simulated"></p></div>
+      </section>
+    </div>
+  </div>
+
+  <div id="p-fx" class="panel grid hide">
+    <div class="between" style="margin:0"><h1 style="margin:0" data-i="n4"></h1><span class="badge" data-i="simulated"></span></div>
+    <div class="card mint"><div class="say" style="margin:0"><span class="ol" data-s="70"></span><div class="bubble" id="fxMsg"></div></div><p class="sub" style="margin:.5rem 0 0">Fixes are calculated on top of the scenario you applied in the What-If Simulator.</p></div>
+    <section class="card" id="fixes"><h2 data-i="fixT"></h2><p class="sub" data-i="bestN"></p><div class="grid g3" id="fxCards"></div></section>
+    <div class="card"><h3 data-i="chartT"></h3><div id="fxChart"></div><div class="legend" id="fxLeg"></div></div>
+  </div>
+
+  <div id="p-cu" class="panel grid hide">
+    <div class="between" style="margin:0"><h1 style="margin:0" data-i="n5"></h1><span class="badge" data-i="sample"></span></div>
+    <div class="grid g4" id="cuCards"></div>
+    <div class="grid g3" id="cuList"></div>
+    <div class="card"><div class="between"><h3>Communication log</h3><button class="btn ghost sm" data-act="clrlog">Clear log</button></div><ul class="list" id="cuLog"></ul></div>
+  </div>
+
+  <div id="p-hl" class="panel grid hide">
+    <div class="between" style="margin:0"><h1 style="margin:0" data-i="n6"></h1><span class="badge" data-i="sample"></span></div>
+    <div class="grid g2w"><div class="card center" id="hlGauge"></div><div class="card" id="hlComps"></div></div>
+    <div class="card"><div class="between"><h3>Recommendations</h3><button class="btn ghost sm" data-act="chat">Ask Ollie</button></div><ul class="list" id="hlRecs"></ul></div>
+  </div>
+
+  <div id="p-se" class="panel grid hide">
+    <div class="between" style="margin:0"><h1 style="margin:0" data-i="n7"></h1><span class="badge" data-i="sample"></span></div>
+    <div class="card grid g3" style="align-items:end">
+      <div class="field" style="margin:0"><label for="se-n">Forecast horizon</label><select id="se-n" class="input"><option value="3">3 months</option><option value="6" selected>6 months</option><option value="9">9 months</option></select></div>
+      <div class="field" style="margin:0"><label for="s-u">Festival sales strength: <b id="v-u">100</b>% of usual uplift</label><input id="s-u" class="range" type="range" min="50" max="130" step="5" value="100"></div>
+      <div class="sub">Drag below 100% to test a weaker festival season: stock-up costs stay the same but sales uplift shrinks.</div>
+    </div>
+    <div class="grid g4" id="seCards"></div>
+    <div class="card"><h3>Monthly income and expenses: history and forecast</h3><div id="seChart"></div><div class="legend"><span><i style="border-color:#0F766E"></i>Income (history)</span><span><i style="border-color:#5eead4"></i>Income (forecast)</span><span><i style="border-color:#102A43"></i>Expenses</span><span>★ festival peak</span></div></div>
+    <div class="grid g3" id="seFest"></div>
+    <div class="card scroll"><table class="tbl"><thead><tr><th>Month</th><th>Festival</th><th>Income</th><th>Expenses</th><th>Net</th><th>Cash after</th></tr></thead><tbody id="seBody"></tbody></table></div>
+  </div>
+
+  <!-- PROFILE PANEL -->
+  <div id="p-pr" class="panel grid hide">
+    <div class="between" style="margin:0">
+      <div>
+        <h1 style="margin:0">User & Business Profile</h1>
+        <p class="sub" style="margin:.2rem 0 0">View registered account details, business settings, and Supabase cloud synchronization status.</p>
+      </div>
+      <div class="row">
+        <span class="badge ok" id="prCloudBadge">⚡ Supabase Cloud Connected</span>
+      </div>
+    </div>
+
+    <!-- Live Telemetry Stats -->
+    <div class="grid g4" id="prStats"></div>
+
+    <div class="grid g2w">
+      <!-- User & Business Details Card -->
+      <section class="card">
+        <div class="row" style="gap:1rem;margin-bottom:1.2rem">
+          <div class="pr-badge-avatar" id="prAvatar">🏪</div>
+          <div>
+            <h2 id="prBiz" style="margin:0 0 .2rem">Sharma Provision Store</h2>
+            <div class="sub">Owner: <b id="prName" style="color:var(--black)">Ramesh Sharma</b></div>
+            <div class="row" style="gap:.4rem;margin-top:.4rem">
+              <span class="badge" id="prEmailBadge">✉ <span id="prEmail">user@example.com</span></span>
+              <span class="badge wn" id="prTypeBadge">Retail Store</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="border-bottom:2.5px solid #000;padding-bottom:.4rem;margin-top:1.2rem">Account & Business Details</h3>
+        
+        <div class="pr-detail-row">
+          <span>Account User ID</span>
+          <span style="display:inline-flex;align-items:center;gap:.4rem">
+            <code id="prId" style="background:#FFFDF0;border:1.5px solid #000;padding:.15rem .45rem;border-radius:4px;font-size:.85rem">u_001</code>
+            <button type="button" class="action-btn" id="btnCopyUserId" title="Copy User ID">📋 Copy</button>
+          </span>
+        </div>
+
+        <div class="pr-detail-row">
+          <span>Business Category</span>
+          <span id="prType">Retail Provision & Groceries</span>
+        </div>
+
+        <div class="pr-detail-row">
+          <span>Business Scale</span>
+          <span id="prSize">Micro (1-5 employees)</span>
+        </div>
+
+        <div class="pr-detail-row">
+          <span>Operating Country</span>
+          <span id="prCountry">India (INR)</span>
+        </div>
+
+        <div class="pr-detail-row">
+          <span>Active Currency</span>
+          <span id="prCur">INR (₹)</span>
+        </div>
+
+        <div class="pr-detail-row">
+          <span>Database Provider</span>
+          <span id="prDbProvider">⚡ Supabase PostgreSQL (Cloud)</span>
+        </div>
+
+        <div class="pr-detail-row">
+          <span>Cash Safety Buffer</span>
+          <span>₹1,00,000 (Protected minimum)</span>
+        </div>
+
+        <div class="pr-detail-row">
+          <span>Starting Cash Balance</span>
+          <span>₹4,30,000</span>
+        </div>
+
+        <div class="pr-detail-row">
+          <span>Forecast Horizon</span>
+          <span>8 Weeks live rolling cash flow</span>
+        </div>
+      </section>
+
+      <!-- Edit Profile Card -->
+      <section class="card mint">
+        <div class="say" style="margin-bottom:.8rem">
+          <span class="ol" data-s="48"></span>
+          <div>
+            <h3 style="margin:0">Update Profile Details</h3>
+            <div class="sub">Changes sync directly to Supabase Cloud</div>
+          </div>
+        </div>
+
+        <form id="prEditForm">
+          <div class="field">
+            <label for="prEditName">Owner / Full Name <span class="rq">*</span></label>
+            <input id="prEditName" class="input" required placeholder="e.g. Ramesh Sharma">
+          </div>
+
+          <div class="field">
+            <label for="prEditBiz">Business / Store Name <span class="rq">*</span></label>
+            <input id="prEditBiz" class="input" required placeholder="e.g. Sharma Provision Store">
+          </div>
+
+          <div class="field">
+            <label for="prEditType">Business Type</label>
+            <select id="prEditType" class="input">
+              <option value="Retail Store">Retail Store / Kirana / Provision</option>
+              <option value="Wholesale & Distribution">Wholesale & Distribution</option>
+              <option value="Restaurant & Food Service">Restaurant & Food Service</option>
+              <option value="Services & Consulting">Services & Consulting</option>
+              <option value="Manufacturing & Production">Manufacturing & Production</option>
+              <option value="E-commerce & Online">E-commerce & Online Store</option>
+              <option value="Healthcare & Pharmacy">Healthcare & Pharmacy</option>
+              <option value="Other">Other Business</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="prEditSize">Business Size / Team</label>
+            <select id="prEditSize" class="input">
+              <option value="Solo Entrepreneur">Solo Entrepreneur</option>
+              <option value="Micro (1-5 employees)">Micro (1-5 employees)</option>
+              <option value="Small (6-20 employees)">Small (6-20 employees)</option>
+              <option value="Medium (20-50 employees)">Medium (20-50 employees)</option>
+              <option value="Large (50+ employees)">Large (50+ employees)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="prEditCur">Operating Currency</label>
+            <select id="prEditCur" class="input">
+              <option value="INR">INR (₹ - Indian Rupee)</option>
+              <option value="USD">USD ($ - US Dollar)</option>
+              <option value="GBP">GBP (£ - British Pound)</option>
+              <option value="AED">AED (د.إ - UAE Dirham)</option>
+              <option value="EUR">EUR (€ - Euro)</option>
+              <option value="SGD">SGD (S$ - Singapore Dollar)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn block" id="btnSaveProfile">Save Changes to Supabase ⚡</button>
+        </form>
+      </section>
+    </div>
+
+    <!-- Cloud Sync & Session Controls -->
+    <div class="card" style="margin-top:.5rem">
+      <div class="between" style="margin:0">
+        <div>
+          <h3 style="margin:0 0 .2rem">Session & Cloud Sync Controls</h3>
+          <p class="sub" style="margin:0">Manage local offline cache, cloud refresh, or sign out.</p>
+        </div>
+        <div class="row">
+          <button type="button" class="btn ghost sm" id="btnSyncFromCloud">🔄 Refresh from Supabase</button>
+          <button type="button" class="btn sm" id="btnProfileLogout" style="background:var(--red);color:#fff;border-color:#000">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOATING CHAT -->
+<button id="chatFab" class="fab hide" data-act="chat" aria-label="Ask Ollie"><span class="ol" data-s="48"></span></button>
+<aside id="chat" class="chat hide" role="dialog" aria-label="Ask Ollie">
+  <div class="chat-h"><span class="ol" data-s="38"></span><div style="flex:1"><b>Ask Ollie</b><div class="sub" id="chatMode">FastAPI Connected</div></div><button class="x" data-act="chat" aria-label="Close chat">✕</button></div>
+  <div id="chatMsgs" class="chat-b" aria-live="polite"></div>
+  <div class="chips" id="chatChips"></div>
+  <form id="chatForm" class="chat-f"><input id="chatIn" class="input" placeholder="Ask about cash flow, customers, planning…" aria-label="Message" autocomplete="off"><button class="btn" aria-label="Send">➤</button></form>
+</aside>
+
+<div id="toast" class="toast" role="status"></div>
+
+<!-- REMINDER DIALOG -->
+<dialog id="remDlg" class="dlg"><form method="dialog">
+  <h3>Send payment reminder</h3><div class="sub" id="remTo"></div>
+  <div class="two"><div class="field"><label for="remCh">Channel</label><select id="remCh" class="input"><option>Email</option><option>SMS</option></select></div>
+  <div class="field"><label for="remTone">Tone</label><select id="remTone" class="input"><option value="friendly">Friendly</option><option value="firm">Firm</option></select></div></div>
+  <div class="field"><label for="remMsg">Message (edit before sending)</label><textarea id="remMsg" class="input" rows="7"></textarea></div>
+  <div class="demo" id="remNote"></div>
+  <div class="between"><button class="btn ghost" value="cancel">Cancel</button><button class="btn" type="button" id="remSend">✉ Send now</button></div>
+</form></dialog>
+
+<!-- ADD / EDIT TRANSACTION DIALOG -->
+<dialog id="txDlg" class="dlg">
+  <form id="txForm" method="dialog">
+    <div class="between" style="margin-bottom:.8rem">
+      <h3 id="txDlgTitle" style="margin:0">Add Transaction</h3>
+      <button type="button" class="btn ghost sm" onclick="$('#txDlg').close()" style="border:0;font-size:1.1rem;padding:.2rem .5rem">✕</button>
+    </div>
+    <input type="hidden" id="t-id" value="">
+    <div class="two" style="margin-bottom:.8rem">
+      <button type="button" class="btn" id="t-tab-in" style="width:100%">＋ Income (Money In)</button>
+      <button type="button" class="btn ghost" id="t-tab-out" style="width:100%">− Expense (Money Out)</button>
+    </div>
+    <input type="hidden" id="t-dir" value="in">
+
+    <div class="field">
+      <label for="t-name">Description / Source / Purpose <span class="rq">*</span></label>
+      <input id="t-name" class="input" required placeholder="e.g. Metro Mart Inv #1042 or Shop Rent">
+    </div>
+
+    <div class="two">
+      <div class="field">
+        <label for="t-amt">Amount (₹) <span class="rq">*</span></label>
+        <input id="t-amt" class="input" type="number" min="1" step="1" required placeholder="50000">
+      </div>
+      <div class="field">
+        <label for="t-cat">Category <span class="rq">*</span></label>
+        <select id="t-cat" class="input" required></select>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="field">
+        <label for="t-date">Date <span class="rq">*</span></label>
+        <input id="t-date" class="input" type="date" required>
+      </div>
+      <div class="field">
+        <label for="t-method">Payment Method <span class="rq">*</span></label>
+        <select id="t-method" class="input">
+          <option value="UPI">UPI (GPay / PhonePe / Paytm)</option>
+          <option value="Bank Transfer">Bank Transfer (NEFT / IMPS / RTGS)</option>
+          <option value="Cash">Cash</option>
+          <option value="Credit Card">Credit Card</option>
+          <option value="Debit Card">Debit Card</option>
+          <option value="Cheque">Cheque</option>
+          <option value="Net Banking">Net Banking</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="two">
+      <div class="field">
+        <label for="t-st">Status</label>
+        <select id="t-st" class="input">
+          <option value="expected" selected>Expected / Pending</option>
+          <option value="settled">Settled / Completed</option>
+          <option value="overdue">Overdue</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="t-cust">Associated Customer / Vendor</label>
+        <select id="t-cust" class="input">
+          <option value="">None (Direct entry)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="between" style="margin-top:1.1rem">
+      <button class="btn ghost" type="button" onclick="$('#txDlg').close()">Cancel</button>
+      <button class="btn" type="submit" id="btnSaveTx">Save Transaction</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- RESET PASSWORD DIALOG -->
+<dialog id="forgotDlg" class="dlg">
+  <form id="forgotForm" method="dialog">
+    <div class="between" style="margin-bottom:.8rem">
+      <div class="row" style="gap:.6rem">
+        <span class="ol" data-s="40"></span>
+        <h3 style="margin:0">Reset Your Password</h3>
+      </div>
+      <button type="button" class="btn ghost sm" onclick="$('#forgotDlg').close()" style="border:0;font-size:1.1rem;padding:.2rem .5rem">✕</button>
+    </div>
+    <p class="sub" style="margin:0 0 1rem">Enter your registered email address and choose a new password (8+ characters).</p>
+    
+    <div class="field">
+      <label for="f-em">Registered Email Address <span class="rq">*</span></label>
+      <input id="f-em" class="input" type="email" required placeholder="e.g. ayimantarannum09@gmail.com">
+    </div>
+
+    <div class="field">
+      <label for="f-pw">New Password <span class="rq">*</span></label>
+      <div class="pw">
+        <input id="f-pw" class="input" type="password" required placeholder="At least 8 characters">
+        <button type="button" class="eye" data-eye="f-pw" aria-label="Show/hide password">👁</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="f-pw2">Confirm New Password <span class="rq">*</span></label>
+      <div class="pw">
+        <input id="f-pw2" class="input" type="password" required placeholder="Re-enter password">
+        <button type="button" class="eye" data-eye="f-pw2" aria-label="Show/hide password">👁</button>
+      </div>
+    </div>
+
+    <div class="err" id="e-forgot" style="margin-bottom:.8rem"></div>
+
+    <div class="between" style="margin-top:1rem">
+      <button class="btn ghost" type="button" onclick="$('#forgotDlg').close()">Cancel</button>
+      <button class="btn" type="submit" id="btnSubmitReset">Reset Password ⚡</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- DELETE CONFIRMATION DIALOG -->
+<dialog id="delDlg" class="dlg">
+  <form id="delForm" method="dialog">
+    <div class="say" style="margin-bottom:.5rem">
+      <span class="ol" data-s="48"></span>
+      <h3 style="margin:0">Delete Transaction?</h3>
+    </div>
+    <p id="delMsg" style="margin:1rem 0;color:var(--mute)"></p>
+    <div class="between">
+      <button class="btn ghost" type="button" onclick="$('#delDlg').close()">Cancel</button>
+      <button class="btn" type="button" id="btnConfirmDelete" style="background:var(--red);border-color:var(--red);color:#fff">Yes, Delete</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- EDIT CURRENT CASH BALANCE DIALOG -->
+<dialog id="balDlg" class="dlg">
+  <form id="balForm" method="dialog">
+    <div class="say" style="margin-bottom:.75rem">
+      <span class="ol" data-s="48"></span>
+      <div>
+        <h3 style="margin:0">Edit Current Cash Balance</h3>
+        <p class="sub" style="margin:.2rem 0 0">Opening cash reserve saved directly to your account in the database.</p>
+      </div>
+    </div>
+    <div class="field" style="margin-top:1rem">
+      <label for="b-amt">Current Cash Balance (₹) <span class="rq">*</span></label>
+      <input id="b-amt" class="input" type="number" step="1" required placeholder="e.g. 430000">
+      <p class="sub" style="margin:.25rem 0 0;font-size:.8rem">All weekly projections, minimum balances, and cash shortage alerts recalculate automatically from this opening balance.</p>
+    </div>
+    <div class="between" style="margin-top:1.25rem">
+      <button class="btn ghost" type="button" onclick="$('#balDlg').close()">Cancel</button>
+      <button class="btn" type="submit" id="btnSaveBalance" style="background:var(--teal);border-color:var(--black)">Save Balance ✓</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+/* ---------- i18n ---------- */
+const L={
+en:{tag:"Because Every Rupee Has a Tomorrow",intro:"HisaabHoshiyaar helps small businesses see cash shortages coming, plan payments and compare ways to fix them.",start:"Get Started",haveAcc:"Already have an account? Log in",login:"Log In",logout:"Log out",email:"Email",pw:"Password",pw2:"Confirm password",remember:"Remember me",forgot:"Forgot password?",forgotN:"Demo: reset needs a backend.",newAcc:"Create a new account",demo:"Secure Authentication: passwords are encrypted and verified.",ownerName:"Owner's full name",mobile:"Mobile number",sendOtp:"Send demo code",verify:"Verify",otp:"6-digit code",otpDemo:"Demo only: no SMS was sent. Enter any 6 digits.",otpOk:"✓ Demo verification done",step:"Step {a} of 2",back:"Back",next:"Continue",bizName:"Business name",bizType:"Business type",bizSize:"Business size",country:"Country",currency:"Currency",choose:"Select…",create:"Create Business Account",welcome:"Welcome aboard!",welcomeT:"Your demo account is ready.",open:"Open Cash Overview",biz:"Business",sample:"Sample data",
+eName:"Enter your full name.",eEmail:"Enter a valid email.",ePhone:"Enter a valid mobile number.",eOtp:"Verify your mobile number first.",ePw:"Use 8+ characters with a letter and a number.",eMatch:"Passwords do not match.",eReq:"This field is required.",eLogin:"Check your email and password (8+ characters).",eAmt:"Enter a valid amount.",eRange:"Value is out of range.",
+n1:"Cash Overview",n2:"Money In & Out",n3:"What-If Simulator",n4:"Fix Comparison",cash:"Current Cash Balance",lowest:"Lowest Projected Balance",short:"Next Expected Cash Shortage",upc:"Upcoming Payment",week:"Week",now:"Now",none:"None",aTitle:"Ollie spotted a cash-flow warning!",aShort:"Your balance may fall below zero in Week {w}.",aWarn:"Your projected balance may fall below your safety limit in Week {w}.",aOk:"Looking good: no shortage in the forecast.",explore:"Explore Solutions",chartT:"Projected weekly cash balance",safety:"Safety limit",below0:"Below zero",belowS:"Below safety limit",upTx:"Upcoming transactions",viewAll:"View all",
+eIn:"Total Expected Inflows",eOut:"Total Expected Outflows",tRecv:"Total Received",tPaid:"Total Paid",search:"Search by name…",all:"All",in:"Money In",out:"Money Out",name:"Name",type:"Type",status:"Status",amount:"Amount",due:"Due date",delay:"Delay (days)",dir:"Direction",exp:"Expected",done:"Received / Paid",rec:"Received",paid:"Paid",over:"Overdue",clear:"Clear filters",empty:"No transactions match your filters.",sDue:"Sort: due date",sAmt:"Sort: amount",
+t_cust:"Customer Receivable",t_sup:"Supplier Payment",t_pay:"Payroll",t_loan:"Loan Instalment",t_exp:"Expense",days:"days",
+cDelay:"Customer payment delay",inv:"Customer invoice",extra:"Extra delay",unexp:"Unexpected expense",expAmt:"Expense amount",expIn:"In how many days",sales:"Reduced sales",salesH:"Cuts all expected customer receipts by this percentage.",supT:"Changed supplier terms",supPay:"Supplier payment",shift:"Delay payment by",apply:"Apply Scenario",reset:"Reset Scenario",base:"Baseline",mod:"With scenario",wb0:"Weeks below zero",sw:"Shortage week",diff:"Change vs baseline",noSh:"No shortage",simulated:"Simulated with sample data",
+fixT:"Fix comparison",bestN:"Based on cash-flow numbers only; consider your wider business needs.",fx1:"Fix 1: Collect an invoice earlier",fx2:"Fix 2: Delay a supplier payment",fx3:"Fix 3: Short-term loan",fx1d:"Sharma Traders invoice collected 21 days earlier",fx2d:"Gupta Wholesale payment delayed 14 days",fx3d:"Loan of 150,000 in 28 days, repaid with 3% fee in 56 days. Borrowed money is not profit.",best:"Best on cash metrics",vs:"vs baseline",show:"Show forecast",showing:"Showing",
+olWelcome:"Hi, I am Ollie! I help you see tomorrow's cash today.",olReg:"Just a few details and we are ready to start.",olDash:"Let's see what your cash looks like in the coming weeks!",olWarn:"Heads up! Your balance may fall below the safety limit soon.",olSim:"What happens if this customer pays 20 days late? Try it!",olFix:"This option improves your projected balance. Review repayment obligations before deciding.",n5:'Customers',n6:'Health Score',n7:'Seasonal Forecast',n8:'👤 Profile'},
+hi:{tag:"क्योंकि हर रुपये का एक कल होता है",intro:"हिसाबहोशियार छोटे कारोबारों को नकदी की कमी पहले से देखने, भुगतान की योजना बनाने और समाधान की तुलना करने में मदद करता है।",start:"शुरू करें",haveAcc:"पहले से खाता है? लॉग इन करें",login:"लॉग इन",logout:"लॉग आउट",email:"ईमेल",pw:"पासवर्ड",pw2:"पासवर्ड की पुष्टि करें",remember:"मुझे याद रखें",forgot:"पासवर्ड भूल गए?",forgotN:"डेमो: रीसेट के लिए बैकएंड चाहिए।",newAcc:"नया खाता बनाएँ",demo:"सुरक्षित प्रमाणीकरण: पासवर्ड एन्क्रिप्ट और क्लाउड में सत्यापित होते हैं।",ownerName:"मालिक का पूरा नाम",mobile:"मोबाइल नंबर",sendOtp:"डेमो कोड भेजें",verify:"सत्यापित करें",otp:"6 अंकों का कोड",otpDemo:"केवल डेमो: कोई SMS नहीं भेजा गया। कोई भी 6 अंक डालें।",otpOk:"✓ डेमो सत्यापन पूरा",step:"चरण {a} / 2",back:"पीछे",next:"आगे बढ़ें",bizName:"व्यवसाय का नाम",bizType:"व्यवसाय का प्रकार",bizSize:"व्यवसाय का आकार",country:"देश",currency:"मुद्रा",choose:"चुनें…",create:"व्यवसाय खाता बनाएँ",welcome:"स्वागत है!",welcomeT:"आपका डेमो खाता तैयार है।",open:"कैश ओवरव्यू खोलें",biz:"व्यवसाय",sample:"नमूना डेटा",
+eName:"अपना पूरा नाम दर्ज करें।",eEmail:"सही ईमेल दर्ज करें।",ePhone:"सही मोबाइल नंबर दर्ज करें।",eOtp:"पहले मोबाइल नंबर सत्यापित करें।",ePw:"8+ अक्षर, जिनमें एक अक्षर और एक अंक हो।",eMatch:"पासवर्ड मेल नहीं खाते।",eReq:"यह फ़ील्ड आवश्यक है।",eLogin:"ईमेल और पासवर्ड (8+ अक्षर) जाँचें।",eAmt:"सही राशि दर्ज करें।",eRange:"मान सीमा से बाहर है।",
+n1:"कैश ओवरव्यू",n2:"आमदनी और खर्च",n3:"क्या-अगर सिम्युलेटर",n4:"समाधान तुलना",n5:"ग्राहक",n6:"वित्तीय स्वास्थ्य",n7:"मौसमी पूर्वानुमान",n8:"👤 प्रोफाइल",cash:"वर्तमान नकद शेष",lowest:"न्यूनतम अनुमानित शेष",short:"अगली संभावित नकदी कमी",upc:"आगामी भुगतान",week:"सप्ताह",now:"अभी",none:"कोई नहीं",aTitle:"ऑली ने नकदी की चेतावनी देखी!",aShort:"सप्ताह {w} में आपका शेष शून्य से नीचे जा सकता है।",aWarn:"सप्ताह {w} में आपका अनुमानित शेष सुरक्षा सीमा से नीचे जा सकता है।",aOk:"सब ठीक है: अनुमान में कोई कमी नहीं।",explore:"समाधान देखें",chartT:"साप्ताहिक अनुमानित नकद शेष",safety:"सुरक्षा सीमा",below0:"शून्य से नीचे",belowS:"सुरक्षा सीमा से नीचे",upTx:"आगामी लेन-देन",viewAll:"सभी देखें",
+eIn:"कुल अपेक्षित आमदनी",eOut:"कुल अपेक्षित खर्च",tRecv:"कुल प्राप्त",tPaid:"कुल चुकाया",search:"नाम से खोजें…",all:"सभी",in:"आमदनी",out:"खर्च",name:"नाम",type:"प्रकार",status:"स्थिति",amount:"राशि",due:"देय तिथि",delay:"देरी (दिन)",dir:"दिशा",exp:"अपेक्षित",done:"प्राप्त / चुकाया",rec:"प्राप्त",paid:"चुकाया",over:"बकाया",clear:"फ़िल्टर हटाएँ",empty:"कोई लेन-देन नहीं मिला।",sDue:"क्रम: देय तिथि",sAmt:"क्रम: राशि",
+t_cust:"ग्राहक से प्राप्य",t_sup:"आपूर्तिकर्ता भुगतान",t_pay:"वेतन",t_loan:"ऋण किस्त",t_exp:"खर्च",days:"दिन",
+cDelay:"ग्राहक भुगतान में देरी",inv:"ग्राहक बिल",extra:"अतिरिक्त देरी",unexp:"अचानक खर्च",expAmt:"खर्च की राशि",expIn:"कितने दिन में",sales:"बिक्री में कमी",salesH:"सभी अपेक्षित ग्राहक प्राप्तियाँ इस प्रतिशत से घटती हैं।",supT:"आपूर्तिकर्ता शर्तों में बदलाव",supPay:"आपूर्तिकर्ता भुगतान",shift:"भुगतान में देरी",apply:"परिदृश्य लागू करें",reset:"रीसेट करें",base:"आधार",mod:"परिदृश्य के साथ",wb0:"शून्य से नीचे सप्ताह",sw:"कमी का सप्ताह",diff:"आधार से बदलाव",noSh:"कोई कमी नहीं",simulated:"नमूना डेटा से सिम्युलेट किया गया",
+fixT:"समाधान तुलना",bestN:"यह केवल नकदी-प्रवाह के आँकड़ों पर आधारित है; अपनी व्यापक ज़रूरतें भी देखें।",fx1:"समाधान 1: बिल जल्दी वसूलें",fx2:"समाधान 2: आपूर्तिकर्ता भुगतान टालें",fx3:"समाधान 3: अल्पकालिक ऋण",fx1d:"शर्मा ट्रेडर्स का बिल 21 दिन पहले वसूला",fx2d:"गुप्ता होलसेल का भुगतान 14 दिन टाला",fx3d:"28 दिन में 150,000 का ऋण, 56 दिन में 3% शुल्क सहित चुकौती। उधार का पैसा मुनाफ़ा नहीं है।",best:"नकदी मानकों पर सर्वश्रेष्ठ",vs:"आधार की तुलना में",show:"पूर्वानुमान दिखाएँ",showing:"दिख रहा है",
+olWelcome:"नमस्ते, मैं ऑली हूँ! मैं आपको कल की नकदी आज दिखाता हूँ।",olReg:"बस कुछ जानकारी, फिर हम शुरू करेंगे।",olDash:"आइए देखें आने वाले सप्ताहों में आपकी नकदी कैसी रहेगी!",olWarn:"ध्यान दें! आपका शेष जल्द सुरक्षा सीमा से नीचे जा सकता है।",olSim:"अगर यह ग्राहक 20 दिन देर से भुगतान करे तो? आज़माएँ!",olFix:"यह विकल्प आपका अनुमानित शेष सुधारता है। चुनने से पहले चुकौती की ज़िम्मेदारियाँ देखें।"},
+kn:{tag:"ಏಕೆಂದರೆ ಪ್ರತಿ ರೂಪಾಯಿಗೂ ಒಂದು ನಾಳೆ ಇದೆ",intro:"ಹಿಸಾಬ್‌ಹೋಶಿಯಾರ್ ಸಣ್ಣ ವ್ಯವಹಾರಗಳಿಗೆ ನಗದು ಕೊರತೆಯನ್ನು ಮುಂಚಿತವಾಗಿ ಗುರುತಿಸಲು, ಪಾವತಿಗಳನ್ನು ಯೋಜಿಸಲು ಮತ್ತು ಪರಿಹಾರಗಳನ್ನು ಹೋಲಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ.",start:"ಪ್ರಾರಂಭಿಸಿ",haveAcc:"ಈಗಾಗಲೇ ಖಾತೆ ಇದೆಯೇ? ಲಾಗ್ ಇನ್ ಮಾಡಿ",login:"ಲಾಗ್ ಇನ್",logout:"ಲಾಗ್ ಔಟ್",email:"ಇಮೇಲ್",pw:"ಪಾಸ್‌ವರ್ಡ್",pw2:"ಪಾಸ್‌ವರ್ಡ್ ಖಚಿತಪಡಿಸಿ",remember:"ನನ್ನನ್ನು ನೆನಪಿಡಿ",forgot:"ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿರಾ?",forgotN:"ಡೆಮೊ: ಮರುಹೊಂದಿಕೆಗೆ ಬ್ಯಾಕೆಂಡ್ ಬೇಕು.",newAcc:"ಹೊಸ ಖಾತೆ ರಚಿಸಿ",demo:"ಸುರಕ್ಷಿತ ದೃಢೀಕರಣ: ಪಾಸ್‌ವರ್ಡ್‌ಗಳನ್ನು ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಲಾಗುತ್ತದೆ.",ownerName:"ಮಾಲೀಕರ ಪೂರ್ಣ ಹೆಸರು",mobile:"ಮೊಬೈಲ್ ಸಂಖ್ಯೆ",sendOtp:"ಡೆಮೊ ಕೋಡ್ ಕಳುಹಿಸಿ",verify:"ಪರಿಶೀಲಿಸಿ",otp:"6 ಅಂಕಿಯ ಕೋಡ್",otpDemo:"ಡೆಮೊ ಮಾತ್ರ: SMS ಕಳುಹಿಸಲಾಗಿಲ್ಲ. ಯಾವುದೇ 6 ಅಂಕಿ ನಮೂದಿಸಿ.",otpOk:"✓ ಡೆಮೊ ಪರಿಶೀಲನೆ ಪೂರ್ಣ",step:"ಹಂತ {a} / 2",back:"ಹಿಂದೆ",next:"ಮುಂದುವರಿಸಿ",bizName:"ವ್ಯವಹಾರದ ಹೆಸರು",bizType:"ವ್ಯವಹಾರದ ಪ್ರಕಾರ",bizSize:"ವ್ಯವಹಾರದ ಗಾತ್ರ",country:"ದೇಶ",currency:"ಕರೆನ್ಸಿ",choose:"ಆಯ್ಕೆಮಾಡಿ…",create:"ವ್ಯವಹಾರ ಖಾತೆ ರಚಿಸಿ",welcome:"ಸ್ವಾಗತ!",welcomeT:"ನಿಮ್ಮ ಡೆಮೊ ಖಾತೆ ಸಿದ್ಧವಾಗಿದೆ.",open:"ನಗದು ಅವಲೋಕನ ತೆರೆಯಿರಿ",biz:"ವ್ಯವಹಾರ",sample:"ಮಾದರಿ ಡೇಟಾ",
+eName:"ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು ನಮೂದಿಸಿ.",eEmail:"ಸರಿಯಾದ ಇಮೇಲ್ ನಮೂದಿಸಿ.",ePhone:"ಸರಿಯಾದ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ.",eOtp:"ಮೊದಲು ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಪರಿಶೀಲಿಸಿ.",ePw:"8+ ಅಕ್ಷರಗಳು, ಒಂದು ಅಕ್ಷರ ಮತ್ತು ಒಂದು ಅಂಕಿ ಇರಲಿ.",eMatch:"ಪಾಸ್‌ವರ್ಡ್‌ಗಳು ಹೊಂದಿಕೆಯಾಗುತ್ತಿಲ್ಲ.",eReq:"ಈ ಕ್ಷೇತ್ರ ಅಗತ್ಯ.",eLogin:"ಇಮೇಲ್ ಮತ್ತು ಪಾಸ್‌ವರ್ಡ್ (8+ ಅಕ್ಷರ) ಪರಿಶೀಲಿಸಿ.",eAmt:"ಸರಿಯಾದ ಮೊತ್ತ ನಮೂದಿಸಿ.",eRange:"ಮೌಲ್ಯ ವ್ಯಾಪ್ತಿಯ ಹೊರಗಿದೆ.",
+n1:"ನಗದು ಅವಲೋಕನ",n2:"ಆದಾಯ ಮತ್ತು ವೆಚ್ಚ",n3:"ಒಂದು ವೇಳೆ ಸಿಮ್ಯುಲೇಟರ್",n4:"ಪರಿಹಾರ ಹೋಲಿಕೆ",n5:"ಗ್ರಾಹಕರು",n6:"ಆರ್ಥಿಕ ಆರೋಗ್ಯ",n7:"ಋತುಮಾನ ಮುನ್ಸೂಚನೆ",n8:"👤 ಪ್ರೊಫೈಲ್",cash:"ಪ್ರಸ್ತುತ ನಗದು ಬಾಕಿ",lowest:"ಕನಿಷ್ಠ ಅಂದಾಜು ಬಾಕಿ",short:"ಮುಂದಿನ ನಗದು ಕೊರತೆ",upc:"ಮುಂಬರುವ ಪಾವತಿ",week:"ವಾರ",now:"ಈಗ",none:"ಯಾವುದೂ ಇಲ್ಲ",aTitle:"ಒಲ್ಲಿ ನಗದು ಎಚ್ಚರಿಕೆ ಗಮನಿಸಿದೆ!",aShort:"ವಾರ {w} ರಲ್ಲಿ ನಿಮ್ಮ ಬಾಕಿ ಸೊನ್ನೆಗಿಂತ ಕೆಳಗೆ ಹೋಗಬಹುದು.",aWarn:"ವಾರ {w} ರಲ್ಲಿ ನಿಮ್ಮ ಅಂದಾಜು ಬಾಕಿ ಸುರಕ್ಷತಾ ಮಿತಿಗಿಂತ ಕೆಳಗೆ ಹೋಗಬಹುದು.",aOk:"ಎಲ್ಲವೂ ಚೆನ್ನಾಗಿದೆ: ಅಂದಾಜಿನಲ್ಲಿ ಕೊರತೆ ಇಲ್ಲ.",explore:"ಪರಿಹಾರಗಳನ್ನು ನೋಡಿ",chartT:"ವಾರದ ಅಂದಾಜು ನಗದು ಬಾಕಿ",safety:"ಸುರಕ್ಷತಾ ಮಿತಿ",below0:"ಸೊನ್ನೆಗಿಂತ ಕೆಳಗೆ",belowS:"ಸುರಕ್ಷತಾ ಮಿತಿಗಿಂತ ಕೆಳಗೆ",upTx:"ಮುಂಬರುವ ವಹಿವಾಟುಗಳು",viewAll:"ಎಲ್ಲವನ್ನೂ ನೋಡಿ",
+eIn:"ಒಟ್ಟು ನಿರೀಕ್ಷಿತ ಆದಾಯ",eOut:"ಒಟ್ಟು ನಿರೀಕ್ಷಿತ ವೆಚ್ಚ",tRecv:"ಒಟ್ಟು ಸ್ವೀಕೃತ",tPaid:"ಒಟ್ಟು ಪಾವತಿ",search:"ಹೆಸರಿನಿಂದ ಹುಡುಕಿ…",all:"ಎಲ್ಲಾ",in:"ಆದಾಯ",out:"ವೆಚ್ಚ",name:"ಹೆಸರು",type:"ಪ್ರಕಾರ",status:"ಸ್ಥಿತಿ",amount:"ಮೊತ್ತ",due:"ಬಾಕಿ ದಿನಾಂಕ",delay:"ವಿಳಂಬ (ದಿನ)",dir:"ದಿಕ್ಕು",exp:"ನಿರೀಕ್ಷಿತ",done:"ಸ್ವೀಕೃತ / ಪಾವತಿ",rec:"ಸ್ವೀಕರಿಸಲಾಗಿದೆ",paid:"ಪಾವತಿಸಲಾಗಿದೆ",over:"ಮೀರಿದೆ",clear:"ಫಿಲ್ಟರ್ ತೆರವುಗೊಳಿಸಿ",empty:"ಯಾವುದೇ ವಹಿವಾಟು ಕಂಡುಬಂದಿಲ್ಲ.",sDue:"ವಿಂಗಡಣೆ: ದಿನಾಂಕ",sAmt:"ವಿಂಗಡಣೆ: ಮೊತ್ತ",
+t_cust:"ಗ್ರಾಹಕರಿಂದ ಬರಬೇಕಾದದ್ದು",t_sup:"ಪೂರೈಕೆದಾರ ಪಾವತಿ",t_pay:"ವೇತನ",t_loan:"ಸಾಲದ ಕಂತು",t_exp:"ವೆಚ್ಚ",days:"ದಿನ",
+cDelay:"ಗ್ರಾಹಕರ ಪಾವತಿ ವಿಳಂಬ",inv:"ಗ್ರಾಹಕ ಇನ್‌ವಾಯ್ಸ್",extra:"ಹೆಚ್ಚುವರಿ ವಿಳಂಬ",unexp:"ಅನಿರೀಕ್ಷಿತ ವೆಚ್ಚ",expAmt:"ವೆಚ್ಚದ ಮೊತ್ತ",expIn:"ಎಷ್ಟು ದಿನಗಳಲ್ಲಿ",sales:"ಮಾರಾಟ ಇಳಿಕೆ",salesH:"ನಿರೀಕ್ಷಿತ ಗ್ರಾಹಕ ಸ್ವೀಕೃತಿಗಳನ್ನು ಈ ಶೇಕಡಾವಾರು ಕಡಿಮೆ ಮಾಡುತ್ತದೆ.",supT:"ಪೂರೈಕೆದಾರ ನಿಯಮ ಬದಲಾವಣೆ",supPay:"ಪೂರೈಕೆದಾರ ಪಾವತಿ",shift:"ಪಾವತಿ ವಿಳಂಬ",apply:"ಸನ್ನಿವೇಶ ಅನ್ವಯಿಸಿ",reset:"ಮರುಹೊಂದಿಸಿ",base:"ಆಧಾರ",mod:"ಸನ್ನಿವೇಶದೊಂದಿಗೆ",wb0:"ಸೊನ್ನೆಗಿಂತ ಕೆಳಗಿನ ವಾರಗಳು",sw:"ಕೊರತೆಯ ವಾರ",diff:"ಆಧಾರದಿಂದ ಬದಲಾವಣೆ",noSh:"ಕೊರತೆ ಇಲ್ಲ",simulated:"ಮಾದರಿ ಡೇಟಾದಿಂದ ಸಿಮ್ಯುಲೇಟ್ ಮಾಡಲಾಗಿದೆ",
+fixT:"ಪರಿಹಾರ ಹೋಲಿಕೆ",bestN:"ಇದು ನಗದು ಹರಿವಿನ ಅಂಕಿಅಂಶಗಳನ್ನು ಮಾತ್ರ ಆಧರಿಸಿದೆ; ನಿಮ್ಮ ವ್ಯವಹಾರದ ಇತರ ಅಗತ್ಯಗಳನ್ನೂ ಪರಿಗಣಿಸಿ.",fx1:"ಪರಿಹಾರ 1: ಇನ್‌ವಾಯ್ಸ್ ಬೇಗ ವಸೂಲಿ",fx2:"ಪರಿಹಾರ 2: ಪೂರೈಕೆದಾರ ಪಾವತಿ ಮುಂದೂಡಿ",fx3:"ಪರಿಹಾರ 3: ಅಲ್ಪಾವಧಿ ಸಾಲ",fx1d:"ಶರ್ಮಾ ಟ್ರೇಡರ್ಸ್ ಇನ್‌ವಾಯ್ಸ್ 21 ದಿನ ಮುಂಚೆ ವಸೂಲಿ",fx2d:"ಗುಪ್ತಾ ಹೋಲ್‌ಸೇಲ್ ಪಾವತಿ 14 ದಿನ ಮುಂದೂಡಿಕೆ",fx3d:"28 ದಿನಗಳಲ್ಲಿ 150,000 ಸಾಲ, 56 ದಿನಗಳಲ್ಲಿ 3% ಶುಲ್ಕದೊಂದಿಗೆ ಮರುಪಾವತಿ. ಸಾಲದ ಹಣ ಲಾಭವಲ್ಲ.",best:"ನಗದು ಮಾಪನಗಳಲ್ಲಿ ಉತ್ತಮ",vs:"ಆಧಾರಕ್ಕೆ ಹೋಲಿಸಿದರೆ",show:"ಮುನ್ಸೂಚನೆ ತೋರಿಸಿ",showing:"ತೋರಿಸಲಾಗುತ್ತಿದೆ",
+olWelcome:"ನಮಸ್ಕಾರ, ನಾನು ಒಲ್ಲಿ! ನಾಳೆಯ ನಗದನ್ನು ಇಂದೇ ತೋರಿಸುತ್ತೇನೆ.",olReg:"ಕೆಲವೇ ವಿವರಗಳು, ನಂತರ ಪ್ರಾರಂಭಿಸೋಣ.",olDash:"ಮುಂದಿನ ವಾರಗಳಲ್ಲಿ ನಿಮ್ಮ ನಗದು ಹೇಗಿರುತ್ತದೆ ನೋಡೋಣ!",olWarn:"ಎಚ್ಚರಿಕೆ! ನಿಮ್ಮ ಬಾಕಿ ಶೀಘ್ರದಲ್ಲೇ ಸುರಕ್ಷತಾ ಮಿತಿಗಿಂತ ಕೆಳಗೆ ಹೋಗಬಹುದು.",olSim:"ಈ ಗ್ರಾಹಕ 20 ದಿನ ತಡವಾಗಿ ಪಾವತಿಸಿದರೆ ಏನಾಗುತ್ತದೆ? ಪ್ರಯತ್ನಿಸಿ!",olFix:"ಈ ಆಯ್ಕೆ ನಿಮ್ಮ ಅಂದಾಜು ಬಾಕಿಯನ್ನು ಸುಧಾರಿಸುತ್ತದೆ. ನಿರ್ಧರಿಸುವ ಮೊದಲು ಮರುಪಾವತಿ ಬಾಧ್ಯತೆಗಳನ್ನು ಪರಿಶೀಲಿಸಿ."}
+};
+const LOC={en:'en-IN',hi:'hi-IN',kn:'kn-IN'};
+let lang=localStorage.getItem('hh_lang')||'en',cur='INR',user=null,sel=0,tab='ov',scen=null,step=1,otpOK=false;
+const T=(k,v)=>{let s=(L[lang]&&L[lang][k])||L.en[k]||k;if(v)for(const x in v)s=s.replace('{'+x+'}',v[x]);return s};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const money=n=>new Intl.NumberFormat(LOC[lang],{style:'currency',currency:cur,maximumFractionDigits:0}).format(n);
+const cm=n=>new Intl.NumberFormat(LOC[lang],{notation:'compact',maximumFractionDigits:1}).format(n);
+const dt=d=>{const x=new Date();x.setDate(x.getDate()+d);return new Intl.DateTimeFormat(LOC[lang],{day:'numeric',month:'short'}).format(x)};
+
+/* ---------- Ollie the Owl (inline SVG) ---------- */
+const ollie=(s,w)=>`<svg width="${s}" height="${s}" viewBox="0 0 120 120" role="img" aria-label="Ollie the Owl"><path d="M26 42L20 12 48 30ZM94 42L100 12 72 30Z" fill="#10243A"/><ellipse cx="60" cy="72" rx="40" ry="40" fill="#009688"/><ellipse cx="60" cy="88" rx="24" ry="22" fill="#D9F5EF"/><path d="M46 80q4 6 8 0M66 80q4 6 8 0M56 96q4 6 8 0" stroke="#009688" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="44" cy="56" r="17" fill="#fff"/><circle cx="76" cy="56" r="17" fill="#fff"/><g class="eyes"><circle cx="44" cy="57" r="8" fill="#10243A"/><circle cx="76" cy="57" r="8" fill="#10243A"/><circle cx="47" cy="54" r="2.5" fill="#fff"/><circle cx="79" cy="54" r="2.5" fill="#fff"/></g><path d="M60 62L53 73H67Z" fill="#FFB000"/><path d="M44 112h12M64 112h12" stroke="#FFB000" stroke-width="5" stroke-linecap="round"/>${w?'<circle cx="104" cy="20" r="14" fill="#FFB000"/><text x="104" y="27" text-anchor="middle" font-size="20" font-weight="700" fill="#10243A">!</text>':''}</svg>`;
+
+/* ---------- FASTAPI BACKEND CLIENT ---------- */
+const API_BASE = (window.location.origin && window.location.origin.startsWith('http')) ? window.location.origin : 'http://localhost:8000';
+let backendOnline = false;
+
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const toast=m=>{const e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),3200)};
+
+let currentDbProvider = 'sqlite';
+
+function updateApiBadge(online, dbProvider){
+  const el=$('#apiStatusBadge');
+  if(!el)return;
+  if(dbProvider) currentDbProvider = dbProvider;
+  if(online){
+    el.className='badge ok';
+    if(currentDbProvider === 'supabase'){
+      el.textContent='⚡ Supabase Cloud';
+      el.title='FastAPI connected · Supabase cloud database active ('+API_BASE+')';
+      $('#chatMode').textContent='⚡ Supabase Cloud · Ollie AI';
+    }else{
+      el.textContent='● SQLite Local';
+      el.title='FastAPI connected · Local SQLite database (Click for details)';
+      $('#chatMode').textContent='● SQLite Local · Ollie AI';
+    }
+  }else{
+    el.className='badge wn';
+    el.textContent='○ Demo Mode';
+    el.title='FastAPI offline - running in browser fallback mode';
+    $('#chatMode').textContent='Demo assistant · rule-based';
+  }
+}
+
+async function api(path, body, fb, method){
+  const m = method || (body ? 'POST' : 'GET');
+  try{
+    const hdrs = { 'Content-Type': 'application/json' };
+    if(user && user.id) hdrs['X-User-Id'] = user.id;
+    if(user && user.email) hdrs['X-User-Email'] = user.email;
+    const r = await fetch(API_BASE + path, {
+      method: m,
+      headers: hdrs,
+      body: (body && m !== 'GET') ? JSON.stringify(body) : undefined
+    });
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    backendOnline = true;
+    updateApiBadge(true);
+    return await r.json();
+  }catch(e){
+    backendOnline = false;
+    updateApiBadge(false);
+    return fb ? fb() : null;
+  }
+}
+
+async function checkBackend(){
+  try{
+    const r=await fetch(API_BASE+'/api/status');
+    if(r.ok){
+      const d = await r.json();
+      backendOnline=true;
+      updateApiBadge(true, d.database || (d.supabase_enabled ? 'supabase' : 'sqlite'));
+      return true;
+    }
+  }catch(e){}
+  backendOnline=false;
+  updateApiBadge(false);
+  return false;
+}
+
+/* ---------- SAMPLE DATA + forecast logic (day = days from today) ---------- */
+const tx=(id,n,ty,a,day,dl=0,st='e')=>({id,n,name:n,ty,type:ty==='cust'?'customer':ty==='sup'?'supplier':ty==='pay'?'payroll':ty,dir:ty==='cust'?'in':'out',a,amount:a,day,dl,delay:dl,st,status:st==='s'?'settled':st==='o'?'overdue':'expected'});
+let TX=[];
+let OPEN=100000;
+const SAFE=100000,H=8,wk=d=>Math.max(0,Math.ceil(d/7)),eff=t=>t.day+t.dl;
+
+async function syncTransactionsFromBackend(){
+  if(!user) {
+    TX = [];
+    return;
+  }
+  const data = await api('/api/transactions', null, () => {
+    try {
+      const cached = localStorage.getItem(`hh_local_tx_${user.id}`);
+      return cached ? JSON.parse(cached) : [];
+    } catch(e) { return []; }
+  });
+  if(data && Array.isArray(data)){
+    TX = data.map(t=>({
+      id: t.id,
+      n: t.name||t.n,
+      name: t.name||t.n,
+      ty: t.ty||t.type||'customer',
+      type: t.type||t.ty||'customer',
+      dir: t.dir,
+      a: Number(t.amount||t.a||0),
+      amount: Number(t.amount||t.a||0),
+      day: Number(t.day||0),
+      dl: Number(t.delay||t.dl||0),
+      delay: Number(t.delay||t.dl||0),
+      st: t.st||(t.status==='settled'?'s':t.status==='overdue'?'o':'e'),
+      status: t.status||(t.st==='s'?'settled':t.st==='o'?'overdue':'expected'),
+      cust: t.cust||null,
+      method: t.method||'UPI'
+    }));
+    try { localStorage.setItem(`hh_local_tx_${user.id}`, JSON.stringify(TX)); } catch(e){}
+  } else {
+    TX = [];
+  }
+}
+
+function fc(txs){const d=Array(H+1).fill(0);txs.forEach(t=>{if(t.st==='s')return;const w=wk(eff(t));if(w<=H)d[w]+=t.dir==='in'?t.a:-t.a}); let r=OPEN;return d.map(v=>r+=v)} // settled items are never counted again
+const mt=b=>{const s=b.findIndex(v=>v<0);return{lo:Math.min(...b),s:s<0?null:s,z:b.filter(v=>v<0).length,sf:b.filter(v=>v<SAFE).length}};
+const S0=()=>{
+  const cu = TX.find(t=>(t.ty==='cust'||t.type==='customer'||t.dir==='in') && t.st!=='s' && t.status!=='settled');
+  const su = TX.find(t=>(t.ty==='sup'||t.type==='supplier'||t.dir==='out') && t.st!=='s' && t.status!=='settled');
+  return { inv: cu ? cu.id : '', dl: 0, ex: 0, exd: 30, sp: 0, sup: su ? su.id : '', sh: 0 };
+};
+function applyS(s){
+  const o = TX.map(t => {
+    const x = { ...t };
+    if(s.inv && t.id === s.inv) {
+      x.dl = Number(x.dl || 0) + Number(s.dl || 0);
+      x.delay = Number(x.delay || 0) + Number(s.dl || 0);
+    }
+    if(s.sup && t.id === s.sup) {
+      x.day = Number(x.day || 0) + Number(s.sh || 0);
+    }
+    if(Number(s.sp || 0) > 0 && (t.ty === 'cust' || t.type === 'customer' || t.dir === 'in') && t.st !== 's' && t.status !== 'settled') {
+      x.a = Math.round(Number(t.a || t.amount || 0) * (1 - Number(s.sp) / 100));
+      x.amount = x.a;
+    }
+    if(s.pred && (t.ty === 'cust' || t.type === 'customer' || t.dir === 'in') && t.st !== 's' && t.status !== 'settled') {
+      const pD = predDelay(t.id);
+      x.dl = Math.max(Number(x.dl || 0), pD);
+      x.delay = x.dl;
+    }
+    return x;
+  });
+  if(Number(s.ex || 0) > 0) {
+    o.push(tx('x', 'Unexpected expense', 'exp', Number(s.ex), Number(s.exd || 30)));
+  }
+  return o;
+}
+const FX=[
+  t => {
+    const c = t.find(x => (x.ty==='cust'||x.type==='customer'||x.dir==='in') && x.st!=='s' && x.status!=='settled');
+    return t.map(x => (c && x.id === c.id) ? { ...x, day: Math.max(0, Number(x.day || 0) - 21) } : x);
+  },
+  t => {
+    const s = t.find(x => (x.ty==='sup'||x.type==='supplier'||x.dir==='out') && x.st!=='s' && x.status!=='settled');
+    return t.map(x => (s && x.id === s.id) ? { ...x, day: Number(x.day || 0) + 14 } : x);
+  },
+  t => [...t, { ...tx('li', 'Short-term loan receipt', 'loan', 150000, 28), dir: 'in' }, tx('lo', 'Loan repayment + fee', 'loan', 154500, 56)]
+];
+
+/* ---------- SVG chart ---------- */
+function chart(el,series){
+  const W=640,Hh=280,l=58,r=12,t=14,b=28,all=series.flatMap(s=>s.d);
+  const mnVal = Math.min(...all);
+  const mxVal = Math.max(...all);
+  const mn = Math.min(mnVal, 0);
+  const mx = Math.max(mxVal, SAFE);
+  const lo = mn < 0 ? mn * 1.15 : 0;
+  const hi = Math.max(mx * 1.08, 1000);
+  const X=i=>l+i*(W-l-r)/H,Y=v=>t+(hi-v)*(Hh-t-b)/(hi-lo);let h=`<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="${T('chartT')}" style="width:100%;height:auto">`;
+  if(mn<0)h+=`<rect x="${l}" y="${Y(0)}" width="${W-l-r}" height="${Y(lo)-Y(0)}" fill="#DC2626" opacity=".08"/>`;
+  for(let i=0;i<=4;i++){const v=lo+(hi-lo)*i/4;h+=`<line x1="${l}" x2="${W-r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#DCE5ED"/><text x="${l-6}" y="${Y(v)+4}" text-anchor="end" font-size="11">${cm(v)}</text>`}
+  for(let i=0;i<=H;i++)h+=`<text x="${X(i)}" y="${Hh-8}" text-anchor="middle" font-size="11">${i?'W'+i:T('now')}</text>`;
+  h+=`<line x1="${l}" x2="${W-r}" y1="${Y(0)}" y2="${Y(0)}" stroke="#DC2626" stroke-width="1.8"/><line x1="${l}" x2="${W-r}" y1="${Y(SAFE)}" y2="${Y(SAFE)}" stroke="#FFB000" stroke-dasharray="6 4"/>`;
+  series.forEach(s=>{h+=`<polyline fill="none" stroke="${s.c}" stroke-width="3" ${s.dash?'stroke-dasharray="6 4"':''} points="${s.d.map((v,i)=>X(i)+','+Y(v)).join(' ')}"/>`;
+  if(s.dots)s.d.forEach((v,i)=>h+=`<circle cx="${X(i)}" cy="${Y(v)}" r="5" fill="${v<0?'#DC2626':v<SAFE?'#FFB000':s.c}" stroke="#fff" stroke-width="2"><title>${i?T('week')+' '+i:T('now')}: ${money(v)}${v<0?' · '+T('below0'):v<SAFE?' · '+T('belowS'):''}</title></circle>`)});
+  el.innerHTML=h+'</svg>'}
+const legend=(el,ss)=>el.innerHTML=ss.map(s=>`<span><i style="border-color:${s.c}"></i>${s.n}</span>`).join('')+`<span><i style="border-color:#FFB000;border-top-style:dashed"></i>${T('safety')} (${money(SAFE)})</span><span><i style="border-color:#DC2626"></i>${T('below0')}</span>`;
+const card=(l,v,sub,c)=>`<div class="card"><div class="lbl">${l}</div><div class="val ${c||''}">${v}</div>${sub?`<div class="sub">${sub}</div>`:''}</div>`;
+const sg=n=>(n>0?'+':n<0?'−':'')+money(Math.abs(n));
+
+function updateAuthNav(isLoggedIn){
+  const btnLogin = $('#btnHeaderLogin');
+  const btnSignUp = $('#btnHeaderSignUp');
+  const btnLogout = $('#logout');
+  if(isLoggedIn){
+    if(btnLogin) btnLogin.classList.add('hide');
+    if(btnSignUp) btnSignUp.classList.add('hide');
+    if(btnLogout) btnLogout.classList.remove('hide');
+  } else {
+    if(btnLogin) btnLogin.classList.remove('hide');
+    if(btnSignUp) btnSignUp.classList.remove('hide');
+    if(btnLogout) btnLogout.classList.add('hide');
+  }
+}
+
+/* ---------- Views ---------- */
+function show(v){
+  if(v === 'app' && !user){
+    show('login');
+    return;
+  }
+  $$('.view').forEach(e=>e.classList.add('hide'));
+  const target = $('#v-'+v);
+  if(target) target.classList.remove('hide');
+  updateAuthNav(Boolean(user));
+  window.scrollTo(0,0);
+}
+async function setTab(t){
+  if(!user){
+    show('login');
+    return;
+  }
+  tab=t;
+  try { localStorage.setItem('hh_tab', t); } catch(e){}
+  $$('.panel').forEach(e=>e.classList.add('hide'));
+  $('#p-'+t).classList.remove('hide');
+  $$('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
+  await render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+async function enterApp(targetTab){
+  if(!user){
+    show('login');
+    return;
+  }
+  show('app');
+  $('#chatFab').classList.remove('hide');
+  updateAuthNav(true);
+  $('#bizName').textContent = user.biz || user.biz_name || 'My Business Store';
+  $('#who').textContent = (user.name || 'Owner') + ' · ' + (user.email || '');
+  if(user && user.cash_balance !== undefined){
+    OPEN = Number(user.cash_balance);
+  } else if(backendOnline && (user.id || user.email)){
+    try {
+      const bRes = await api('/api/balance', null, () => null);
+      if(bRes && bRes.balance !== undefined){
+        OPEN = Number(bRes.balance);
+        user.cash_balance = OPEN;
+      }
+    } catch(e){}
+  }
+  await syncTransactionsFromBackend();
+  let savedTab = targetTab;
+  if(!savedTab) {
+    try { savedTab = localStorage.getItem('hh_tab') || 'ov'; } catch(e) { savedTab = 'ov'; }
+  }
+  await setTab(savedTab);
+}
+
+let _lastAnimatedTitleText = null;
+
+function animateDashboardTitle(force = false) {
+  const container = document.getElementById('dashTitleContainer');
+  const titleEl = document.getElementById('dashTitle');
+  const underlineEl = document.getElementById('dashTitleUnderline');
+  const subtitleEl = document.getElementById('dashSubtitle');
+  if(!container || !titleEl || !underlineEl || !subtitleEl) return;
+
+  const rawText = T('n1') || 'Cash Overview';
+  if(!force && _lastAnimatedTitleText === rawText && titleEl.querySelector('.dash-title-word')) {
+    return;
+  }
+  _lastAnimatedTitleText = rawText;
+
+  // Split title into individual words
+  const words = rawText.trim().split(/\s+/).filter(Boolean);
+  titleEl.innerHTML = words.map(w => `<span class="dash-title-word">${esc(w)}</span>`).join(' ');
+
+  const wordEls = titleEl.querySelectorAll('.dash-title-word');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const Motion = window.Motion;
+
+  // Check if prefers-reduced-motion is enabled
+  if (prefersReduced) {
+    wordEls.forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+    underlineEl.style.transform = 'scaleX(1)';
+    underlineEl.style.opacity = '1';
+    subtitleEl.style.opacity = '1';
+    subtitleEl.style.transform = 'none';
+    return;
+  }
+
+  // Use Framer Motion / Motion animate API
+  if (Motion && typeof Motion.animate === 'function') {
+    // 1. Initial state: slide from left (about 60px) and fade from 0
+    wordEls.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateX(-60px)';
+    });
+    underlineEl.style.transform = 'scaleX(0)';
+    underlineEl.style.opacity = '0';
+    subtitleEl.style.opacity = '0';
+    subtitleEl.style.transform = 'translateY(16px)';
+
+    // 2. Animate words with spring (stiffness: 120, damping: 14) and 0.08s stagger
+    const staggerDelay = 0.08;
+    const animationPromises = [];
+
+    wordEls.forEach((el, index) => {
+      const p = Motion.animate(
+        el,
+        {
+          x: [-60, 0],
+          opacity: [0, 1]
+        },
+        {
+          type: 'spring',
+          stiffness: 120,
+          damping: 14,
+          delay: index * staggerDelay
+        }
+      );
+      animationPromises.push(p);
+    });
+
+    const totalTextDuration = (words.length - 1) * staggerDelay + 0.45;
+
+    // 3. Draw gradient underline from left to right after text finishes
+    setTimeout(() => {
+      underlineEl.style.opacity = '1';
+      Motion.animate(
+        underlineEl,
+        { scaleX: [0, 1] },
+        {
+          duration: 0.45,
+          ease: [0.16, 1, 0.3, 1]
+        }
+      );
+    }, totalTextDuration * 1000);
+
+    if (subtitleEl) {
+      setTimeout(() => {
+        Motion.animate(
+          subtitleEl,
+          {
+            y: [16, 0],
+            opacity: [0, 1]
+          },
+          {
+            duration: 0.5,
+            ease: 'easeOut'
+          }
+        );
+      }, (totalTextDuration + 0.3) * 1000);
+    }
+
+  } else {
+    // Graceful fallback with CSS transitions matching exact specs
+    wordEls.forEach((el, index) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateX(-60px)';
+      el.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease';
+      setTimeout(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateX(0)';
+      }, index * 80);
+    });
+
+    const totalDelay = (words.length - 1) * 80 + 450;
+    setTimeout(() => {
+      underlineEl.style.transition = 'transform 0.45s ease-out, opacity 0.3s';
+      underlineEl.style.opacity = '1';
+      underlineEl.style.transform = 'scaleX(1)';
+    }, totalDelay);
+
+    if (subtitleEl) {
+      setTimeout(() => {
+        subtitleEl.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
+        subtitleEl.style.opacity = '1';
+        subtitleEl.style.transform = 'translateY(0)';
+      }, totalDelay + 300);
+    }
+  }
+}
+
+async function renderOv(){
+  animateDashboardTitle();
+
+  // Fetch verified forecast from FastAPI backend whenever online
+  let ovData = null;
+  if(backendOnline){
+    try {
+      ovData = await api('/api/overview', null, () => null);
+      if(ovData && ovData.open_balance !== undefined){
+        OPEN = Number(ovData.open_balance);
+        if(user) user.cash_balance = OPEN;
+      }
+    } catch(e){}
+  }
+
+  const b = (ovData && Array.isArray(ovData.weekly_balances)) ? ovData.weekly_balances : fc(TX);
+  const m = (ovData && ovData.metrics) ? ovData.metrics : mt(b);
+  const pend = TX.filter(t=>t.st!=='s').sort((a,c)=>eff(a)-eff(c));
+  const nx = pend.find(t=>t.dir==='out');
+  const wi = b.findIndex(v=>v<SAFE);
+  const sh = (m.s !== null && m.s !== undefined) || (m.shortage_week !== null && m.shortage_week !== undefined);
+  const shortWk = m.shortage_week !== undefined ? m.shortage_week : m.s;
+  const lowestVal = m.lowest !== undefined ? m.lowest : m.lo;
+  const lowestWk = m.lowest_week !== undefined ? m.lowest_week : (b.indexOf(lowestVal) >= 0 ? b.indexOf(lowestVal) : 0);
+  const aw = sh ? shortWk : (wi >= 0 ? wi : null);
+
+  // Shortage date & causing transaction
+  let shortSub = 'No shortage expected';
+  if(sh){
+    if(m.shortage_date !== undefined && m.shortage_date !== null){
+      shortSub = dt(m.shortage_date) + (m.causing_transaction ? ` · ${m.causing_transaction.name}` : '');
+    } else {
+      shortSub = `≈ ${dt((shortWk - 1) * 7 + 1)}`;
+    }
+  }
+
+  const lowestLabel = lowestWk === 0 ? `${T('week')} 0 (${T('now')})` : `${T('week')} ${lowestWk}`;
+
+  const settledInc = TX.filter(t=>t.dir==='in' && (t.st==='s'||t.status==='settled')).reduce((s,t)=>s+Number(t.a||0),0);
+  const settledExp = TX.filter(t=>t.dir==='out' && (t.st==='s'||t.status==='settled')).reduce((s,t)=>s+Number(t.a||0),0);
+  const actualCurrentBal = (ovData && ovData.cash_balance !== undefined) ? ovData.cash_balance : (OPEN + settledInc - settledExp);
+
+  $('#ovCards').innerHTML =
+    `<div class="card" id="cardCurrentCash" style="cursor:pointer" title="Click to edit opening cash balance"><div class="lbl">${T('cash')} <span style="font-size:.75rem;float:right;color:var(--teal)">✎ Edit</span></div><div class="val">${money(actualCurrentBal)}</div><div class="sub">Opening: ${money(OPEN)} (${settledInc-settledExp>=0?'+':''}${money(settledInc-settledExp)} actual)</div></div>` +
+    card(T('lowest'), money(lowestVal), lowestLabel, lowestVal < 0 ? 'bad' : lowestVal < SAFE ? 'warn' : 'good') +
+    card(T('short'), sh ? `${T('week')} ${shortWk}` : 'No shortage', shortSub, sh ? 'bad' : 'good') +
+    card(T('upc'), nx ? money(nx.a) : T('none'), nx ? nx.n + ' · ' + dt(eff(nx)) : '', 'warn');
+
+  const cashCardEl = $('#cardCurrentCash');
+  if(cashCardEl) cashCardEl.onclick = openEditBalance;
+
+  const al = $('#ovAlert');
+  al.className = 'card alert' + (aw === null ? ' hide' : sh ? '' : ' am');
+  al.innerHTML = aw === null ? '' : `<div><h3>${T('aTitle')}</h3><p>${T(sh ? 'aShort' : 'aWarn', { w: aw })}</p></div><button class="btn" data-go="si">${T('explore')}</button>`;
+
+  chart($('#ovChart'), [{ d: b, c: '#009688', dots: 1 }]);
+  legend($('#ovLeg'), [{ n: T('chartT'), c: '#009688' }]);
+  $('#ovOllie').innerHTML = ollie(100, aw !== null);
+  $('#ovMsg').textContent = aw !== null ? T('olWarn') : T('olDash');
+  $('#ovList').innerHTML = pend.slice(0, 6).map(t => `<li><div><b>${t.n}</b><div class="sub">${dt(eff(t))}${t.st === 'o' ? ` · <span class="badge wn">${T('over')}</span>` : ''}</div></div><div class="${t.dir === 'in' ? 'pos' : 'neg'}">${t.dir === 'in' ? '+' : '−'}${money(t.a)}<div class="sub">${T(t.dir)}</div></div></li>`).join('');
+}
+
+async function renderMo(){
+  const allInc = TX.filter(t=>t.dir==='in').reduce((s,t)=>s+Number(t.a||0),0);
+  const allExp = TX.filter(t=>t.dir==='out').reduce((s,t)=>s+Number(t.a||0),0);
+  
+  // Actual settled cash movements
+  const settledInc = TX.filter(t=>t.dir==='in' && (t.st==='s'||t.status==='settled')).reduce((s,t)=>s+Number(t.a||0),0);
+  const settledExp = TX.filter(t=>t.dir==='out' && (t.st==='s'||t.status==='settled')).reduce((s,t)=>s+Number(t.a||0),0);
+  const pendingInc = allInc - settledInc;
+  const pendingExp = allExp - settledExp;
+
+  // Current cash balance = opening balance + actual settled receipts - actual settled payments
+  const currentCash = OPEN + settledInc - settledExp;
+
+  // Selected / Current Month Summary calculation (actual received and paid in current calendar month)
+  const today = new Date();
+  const thisMonthIdx = today.getMonth();
+  const thisYear = today.getFullYear();
+  const monthName = today.toLocaleString(LOC[lang]||'en-IN', { month: 'long' });
+
+  let actualMonthInc = 0, actualMonthExp = 0;
+  TX.forEach(t => {
+    const isSettled = t.st === 's' || t.status === 'settled';
+    if(!isSettled) return; // Monthly net uses actual receipts and payments for the selected month
+    const d = new Date();
+    d.setDate(d.getDate() + (t.day||0));
+    if(d.getMonth() === thisMonthIdx && d.getFullYear() === thisYear){
+      if(t.dir === 'in') actualMonthInc += Number(t.a||0);
+      else actualMonthExp += Number(t.a||0);
+    }
+  });
+  const mNet = actualMonthInc - actualMonthExp;
+
+  // Render 4 Comprehensive Metric Cards with clear, consistent definitions
+  $('#moCards').innerHTML =
+    card('Total Income', money(allInc), `Received: ${money(settledInc)} · Pending: ${money(pendingInc)}`, 'good') +
+    card('Total Expenses', money(allExp), `Paid: ${money(settledExp)} · Pending: ${money(pendingExp)}`, 'bad') +
+    card('Current Cash Balance', money(currentCash), `Opening: ${money(OPEN)} + Net Actual: ${sg(settledInc - settledExp)}`, currentCash>=0?'good':'bad') +
+    card(`${monthName} Net`, (mNet>=0?'+':'−')+money(Math.abs(mNet)), `Actual: ${money(actualMonthInc)} In − ${money(actualMonthExp)} Out`, mNet>=0?'good':'warn');
+
+  // Populate Filter Selects
+  const keep = (id, html) => { const e = $(id); const v = e.value; e.innerHTML = html; if(v) e.value = v; };
+  keep('#f-dir', `<option value="">Type: All Types</option><option value="in">Money In (+ Income)</option><option value="out">Money Out (− Expense)</option>`);
+  keep('#f-st', `<option value="">Status: All</option><option value="expected">Expected / Pending</option><option value="settled">Settled / Completed</option><option value="overdue">Overdue</option>`);
+  keep('#f-sort', `<option value="d-">Date: Newest first</option><option value="d+">Date: Oldest first</option><option value="a-">Amount: Highest first</option><option value="a+">Amount: Lowest first</option>`);
+
+  // Dynamically populate Category Filter with all active categories
+  const categories = [...new Set(TX.map(t => t.type || t.ty || 'General'))].filter(Boolean);
+  keep('#f-cat', `<option value="">Category: All Categories</option>` + categories.map(c => `<option value="${c}">${catLabel(c)}</option>`).join(''));
+
+  $('#moHead').innerHTML = '<tr>' + ['Description / Source', 'Type', 'Category', 'Amount (₹)', 'Date / Due', 'Method', 'Status', 'Actions'].map(k => `<th>${k}</th>`).join('') + '</tr>';
+
+  const q = ($('#f-q').value||'').toLowerCase();
+  const d = $('#f-dir').value;
+  const cFilter = $('#f-cat').value;
+  const s = $('#f-st').value;
+  const sortVal = $('#f-sort').value || 'd-';
+  const sortKey = sortVal[0];
+  const sortOrder = sortVal[1];
+
+  const rows = TX.filter(t => {
+    const matchQ = (t.n||'').toLowerCase().includes(q) || (t.type||'').toLowerCase().includes(q) || (t.method||'').toLowerCase().includes(q);
+    const matchDir = !d || t.dir === d;
+    const matchCat = !cFilter || (t.type === cFilter || t.ty === cFilter);
+    const matchSt = !s || (t.status === s || t.st === (s==='settled'?'s':s==='overdue'?'o':'e'));
+    return matchQ && matchDir && matchCat && matchSt;
+  }).sort((a, b) => {
+    if(sortKey === 'd') return (sortOrder === '+' ? (a.day - b.day) : (b.day - a.day));
+    return (sortOrder === '+' ? (a.a - b.a) : (b.a - a.a));
+  });
+
+  $('#moBody').innerHTML = rows.map(t => {
+    const isSettled = t.st === 's' || t.status === 'settled';
+    const isOverdue = t.st === 'o' || t.status === 'overdue';
+    const statusBadge = isSettled
+      ? `<span class="badge ok">✓ Settled</span>`
+      : isOverdue
+      ? `<span class="badge bd">! Overdue</span>`
+      : `<span class="badge wn">Pending</span>`;
+    const typeBadge = t.dir === 'in'
+      ? `<span class="badge ok">+ Income</span>`
+      : `<span class="badge bd" style="background:#FEE2E2;color:#991B1B">− Expense</span>`;
+    const safeName = esc(t.n);
+    return `<tr>
+      <td><b>${safeName}</b></td>
+      <td>${typeBadge}</td>
+      <td><span class="badge">${esc(catLabel(t.type||t.ty))}</span></td>
+      <td class="${t.dir==='in'?'pos':'neg'}" style="font-weight:700">${t.dir==='in'?'+':'−'}${money(t.a)}</td>
+      <td>${dt(t.day||0)}</td>
+      <td><span class="sub">${esc(t.method||'UPI')}</span></td>
+      <td>${statusBadge}</td>
+      <td>
+        <div class="row" style="gap:.3rem">
+          <button class="action-btn" title="Edit transaction" onclick="openEditTx('${t.id}')">✏️ Edit</button>
+          <button class="action-btn del" title="Delete transaction" onclick="confirmDeleteTx('${t.id}')">🗑️ Delete</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+
+  $('#moEmpty').classList.toggle('hide', rows.length > 0);
+  if(rows.length === 0) {
+    $('#moEmpty').textContent = 'No transactions found matching your filters.';
+  }
+}
+
+function catLabel(cat) {
+  if(!cat) return 'General';
+  const map = {
+    'customer': 'Sales / Invoices',
+    'cust': 'Sales / Invoices',
+    'sales': 'Sales / Customer Invoice',
+    'services': 'Services & Consulting',
+    'supplier': 'Suppliers & Inventory',
+    'sup': 'Suppliers & Inventory',
+    'expense': 'General Expense',
+    'exp': 'General Expense',
+    'rent': 'Shop & Office Rent',
+    'payroll': 'Salaries & Staff',
+    'pay': 'Salaries & Staff',
+    'utilities': 'Utilities & Electricity',
+    'loan': 'Bank Loan & EMI',
+    'investment': 'Investment & Interest',
+    'refund': 'Refund & Reversal',
+    'marketing': 'Marketing & Ads',
+    'maintenance': 'Repairs & Maintenance',
+    'taxes': 'GST & Taxes',
+    'other': 'Other Miscellaneous'
+  };
+  return map[cat.toLowerCase()] || (cat.charAt(0).toUpperCase() + cat.slice(1));
+}
+
+async function renderSi(){
+  const cu = TX.filter(t => (t.ty === 'cust' || t.type === 'customer' || t.dir === 'in') && t.st !== 's' && t.status !== 'settled');
+  const su = TX.filter(t => (t.ty === 'sup' || t.type === 'supplier' || (t.dir === 'out' && t.ty !== 'cust')) && t.st !== 's' && t.status !== 'settled');
+  const kp = (id, h) => { const e = $(id); const v = e.value; e.innerHTML = h; if(v && e.querySelector(`option[value="${v}"]`)) e.value = v; };
+  kp('#s-inv', cu.length ? cu.map(t => `<option value="${t.id}">${esc(t.n || t.name)} · ${money(t.a || t.amount)}</option>`).join('') : '<option value="">No pending invoices</option>');
+  kp('#s-sup', su.length ? su.map(t => `<option value="${t.id}">${esc(t.n || t.name)} · ${money(t.a || t.amount)} · ${dt(t.day || 0)}</option>`).join('') : '<option value="">No pending supplier payments</option>');
+  
+  const sc = scen || S0();
+  const simPayload = { ...sc, open_balance: OPEN };
+  
+  // Call FastAPI scenario simulate endpoint
+  const simRes = await api('/api/scenario/simulate', simPayload, () => {
+    const mods = applyS(sc);
+    const b = fc(TX), md = fc(mods);
+    const fx = FX.map(f=>{const bl=fc(f(mods));return{b:bl,m:mt(bl)}});
+    const best = fx.map((f,i)=>({...f,i})).sort((a,c)=>c.m.lo-a.m.lo||a.m.z-c.m.z||a.m.sf-c.m.sf||a.i-c.i)[0].i;
+    return { baseline: b, modified: md, baseline_metrics: mt(b), modified_metrics: mt(md), fixes: fx, best_fix_index: best };
+  });
+
+  const b = simRes.baseline, md = simRes.modified;
+  const mb = simRes.baseline_metrics, mm = simRes.modified_metrics;
+  const ch = JSON.stringify(b) !== JSON.stringify(md);
+  
+  const lowestWk = mm.lowest_week !== undefined ? mm.lowest_week : md.indexOf(mm.lo);
+  const lowestWkLabel = lowestWk === 0 ? `${T('week')} 0 (${T('now')})` : `${T('week')} ${lowestWk}`;
+  const shortageWk = mm.shortage_week !== undefined ? mm.shortage_week : mm.s;
+  const shortageText = (shortageWk !== null && shortageWk !== undefined) ? `${T('week')} ${shortageWk}` : T('noSh');
+  
+  $('#siCards').innerHTML =
+    card(T('lowest'), money(mm.lo), lowestWkLabel, mm.lo < 0 ? 'bad' : mm.lo < SAFE ? 'warn' : 'good') +
+    card(T('sw'), shortageText, (shortageWk !== null && shortageWk !== undefined) ? `Earliest week below ₹0` : 'No shortage forecast', (shortageWk !== null && shortageWk !== undefined) ? 'bad' : 'good') +
+    card(T('wb0'), mm.z, T('base') + ': ' + mb.z, mm.z ? 'bad' : 'good') +
+    card(T('diff'), sg(mm.lo - mb.lo), T('lowest'), mm.lo < mb.lo ? 'bad' : mm.lo > mb.lo ? 'good' : '');
+  
+  const fxList = simRes.fixes || [];
+  const bestIdx = simRes.best_fix_index !== undefined ? simRes.best_fix_index : 0;
+  
+  const ser=[{d:b,c:'#10243A',dash:ch,dots:!ch,n:T('base')}];
+  if(ch) ser.push({d:md,c:'#009688',dots:1,n:T('mod')});
+  if(sel && fxList[sel-1]) ser.push({d:fxList[sel-1].b,c:'#009688',dash:1,n:T('fx'+sel)});
+  
+  chart($('#siChart'),ser);legend($('#siLeg'),ser);chart($('#fxChart'),ser);legend($('#fxLeg'),ser);$('#siMsg').textContent=T('olSim');$('#fxMsg').textContent=T('olFix');predText(b,md,mm,mb,sc);
+  
+  $('#fxCards').innerHTML=fxList.map((f,i)=>`<article class="card fix ${bestIdx===i?'best':''} ${sel===i+1?'sel':''}">${bestIdx===i?`<span class="badge ok">★ ${T('best')}</span>`:''}<h3>${f.name || T('fx'+(i+1))}</h3><div class="sub">${f.desc || T('fx'+(i+1)+'d')}</div><dl class="kv"><dt>${T('lowest')}</dt><dd class="${f.m.lo<0?'neg':''}">${money(f.m.lo)}</dd><dt>${T('wb0')}</dt><dd>${f.m.z}</dd><dt>${T('vs')}</dt><dd class="${f.m.lo>=mm.lo?'pos':'neg'}">${sg(f.m.lo-mm.lo)}</dd></dl><div class="sub">${f.m.s===null?T('noSh'):T('sw')+': '+T('week')+' '+f.m.s}</div><button class="btn ${sel===i+1?'':'ghost'} block" data-fx="${i+1}">${sel===i+1?T('showing'):T('show')}</button></article>`).join('');
+}
+
+async function render(){
+  if(!user){
+    show('login');
+    return;
+  }
+  if(tab==='ov') await renderOv();
+  else if(tab==='mo') await renderMo();
+  else if(tab==='si') await renderSi();
+  else if(tab==='fx') await renderSi();
+  else if(tab==='cu') await renderCu();
+  else if(tab==='hl') await renderHl();
+  else if(tab==='se') await renderSe();
+  else if(tab==='pr') await renderPr();
+}
+
+function applyLang(){
+  document.documentElement.lang=lang;
+  $('#lang').value=lang;
+  $$('[data-i]').forEach(e=>e.textContent=T(e.dataset.i));
+  $$('[data-p]').forEach(e=>e.placeholder=T(e.dataset.p));
+  $('#stepLbl').textContent=T('step',{a:step});
+  const opt=(a)=>`<option value="">${T('choose')}</option>`+a.map(x=>`<option>${x}</option>`).join('');
+  const bt=$('#b-type').value,bs=$('#b-size').value;
+  $('#b-type').innerHTML=opt(['Retail','Services','Manufacturing','Trading/Wholesale','Food and Hospitality','E-commerce','Other']);
+  $('#b-size').innerHTML=opt(['Just me','2–10 employees','11–50 employees','51–200 employees','More than 200 employees']);
+  $('#b-type').value=bt;$('#b-size').value=bs;
+  $$('.ol').forEach(e=>{if(e.id!=='ovOllie')e.innerHTML=ollie(+e.dataset.s)});
+  animateDashboardTitle(true);
+  render();
+}
+
+/* ---------- Events ---------- */
+$('#lang').onchange=e=>{lang=e.target.value;localStorage.setItem('hh_lang',lang);applyLang()};
+$('#brand').onclick=()=>show(user?'app':'landing');
+$('#logout').onclick=()=>{
+  user=null;
+  scen=null;
+  sel=0;
+  TX=[];
+  try {
+    localStorage.removeItem('hh_user');
+    sessionStorage.removeItem('hh_user');
+    localStorage.removeItem('hh_tab');
+    localStorage.removeItem('hh_local_tx');
+    localStorage.setItem('hh_signed_out','1');
+  } catch(e){}
+  $('#chatFab').classList.add('hide');
+  $('#chat').classList.add('hide');
+  updateAuthNav(false);
+  show('login');
+  toast('You have been logged out.');
+};
+$$('[data-eye]').forEach(b=>b.onclick=()=>{const i=$('#'+b.dataset.eye);i.type=i.type==='password'?'text':'password'});
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-tab],[data-go],[data-fx]');
+  if(!t)return;
+  if(t.dataset.tab)setTab(t.dataset.tab);
+  else if(t.dataset.go)setTab(t.dataset.go);
+  else{const n=+t.dataset.fx;sel=sel===n?0:n;renderSi()}
+});
+['#f-q','#f-dir','#f-st','#f-sort'].forEach(s=>$(s).oninput=renderMo);
+$('#f-clear').onclick=()=>{$('#f-q').value=$('#f-dir').value=$('#f-st').value='';$('#f-sort').value='d+';renderMo()};
+
+const em=v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v),err=(id,k)=>{const el=$('#e-'+id);if(el)el.textContent=k?T(k):'';return !k};
+$('#loginForm').onsubmit=async e=>{
+  e.preventDefault();
+  const emVal = $('#l-em').value.trim().toLowerCase();
+  const pwVal = $('#l-pw').value;
+  const errEl = $('#e-login');
+  errEl.textContent = '';
+
+  if(!em(emVal)){
+    errEl.textContent = T('eEmail');
+    return;
+  }
+  if(!pwVal || pwVal.length < 8){
+    errEl.textContent = T('ePw');
+    return;
+  }
+
+  const btn = $('#loginForm button[type="submit"], #loginForm .btn.block');
+  const origText = btn ? btn.textContent : 'Log In';
+  if(btn){
+    btn.disabled = true;
+    btn.textContent = 'Verifying...';
+  }
+
+  try {
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: emVal, password: pwVal })
+    });
+    const data = await res.json();
+    if(!res.ok || !data.ok){
+      errEl.textContent = data.detail || 'Incorrect password. Please try again.';
+      return;
+    }
+
+    const rememberMe = $('#l-rem').checked;
+    if(rememberMe) {
+      localStorage.setItem('hh_remember', '1');
+      localStorage.setItem('hh_email', emVal);
+    } else {
+      localStorage.removeItem('hh_remember');
+      localStorage.removeItem('hh_email');
+    }
+
+    user = data.user;
+    cur = user.currency || 'INR';
+    try {
+      localStorage.removeItem('hh_signed_out');
+      if(rememberMe) {
+        localStorage.setItem('hh_user', JSON.stringify(user));
+        sessionStorage.removeItem('hh_user');
+      } else {
+        sessionStorage.setItem('hh_user', JSON.stringify(user));
+        localStorage.removeItem('hh_user');
+      }
+    } catch(e){}
+    toast(`Welcome back, ${user.name}!`);
+    enterApp();
+  } catch(err) {
+    errEl.textContent = 'Connection error. Please try again.';
+  } finally {
+    if(btn){
+      btn.disabled = false;
+      btn.textContent = origText;
+    }
+  }
+};
+
+// Reset Password Dialog Wiring
+const btnForgot = $('#btnForgotPw');
+if(btnForgot){
+  btnForgot.onclick = () => {
+    const curEmail = $('#l-em').value.trim();
+    if(curEmail) $('#f-em').value = curEmail;
+    $('#f-pw').value = '';
+    $('#f-pw2').value = '';
+    $('#e-forgot').textContent = '';
+    $('#forgotDlg').showModal();
+  };
+}
+
+$('#forgotForm').onsubmit = async e => {
+  e.preventDefault();
+  const resetEmail = $('#f-em').value.trim().toLowerCase();
+  const p1 = $('#f-pw').value;
+  const p2 = $('#f-pw2').value;
+  const errEl = $('#e-forgot');
+  errEl.textContent = '';
+
+  if(!em(resetEmail)){
+    errEl.textContent = T('eEmail');
+    return;
+  }
+  if(p1.length < 8){
+    errEl.textContent = T('ePw');
+    return;
+  }
+  if(p1 !== p2){
+    errEl.textContent = T('eMatch');
+    return;
+  }
+
+  const sBtn = $('#btnSubmitReset');
+  const origText = sBtn.textContent;
+  sBtn.disabled = true;
+  sBtn.textContent = 'Resetting...';
+
+  try {
+    const res = await fetch('/api/auth/reset-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: resetEmail, new_password: p1 })
+    });
+    const data = await res.json();
+    if(!res.ok || !data.ok){
+      errEl.textContent = data.detail || 'Failed to reset password.';
+      return;
+    }
+    $('#forgotDlg').close();
+    toast('✓ ' + data.message);
+    $('#l-em').value = resetEmail;
+    $('#l-pw').value = p1;
+    $('#e-login').textContent = '';
+  } catch(err){
+    errEl.textContent = 'Connection error. Please try again.';
+  } finally {
+    sBtn.disabled = false;
+    sBtn.textContent = origText;
+  }
+};
+$('#l-em').value=localStorage.getItem('hh_email')||'';
+function setStep(n){step=n;$('#s1').classList.toggle('hide',n!==1);$('#s2').classList.toggle('hide',n!==2);$('#barFill').style.width=n*50+'%';$('#stepLbl').textContent=T('step',{a:n})}
+$('#to2').onclick=()=>{
+  const pw=$('#r-pw').value;
+  const r=[
+    err('name',/^[\p{L}][\p{L} .'-]+$/u.test($('#r-name').value.trim())?'':'eName'),
+    err('em',em($('#r-em').value)?'':'eEmail'),
+    err('pw',/^(?=.*[A-Za-z])(?=.*\d).{8,}$/.test(pw)?'':'ePw'),
+    err('pw2',pw&&pw===$('#r-pw2').value?'':'eMatch')
+  ];
+  if(r.every(Boolean))setStep(2);
+};
+$('#to1').onclick=()=>setStep(1);
+$('#b-co').onchange=e=>$('#b-cur').value=e.target.value;
+$('#create').onclick=async ()=>{
+  const r=[err('bn',$('#b-name').value.trim()?'':'eReq'),err('bt',$('#b-type').value?'':'eReq'),err('bs',$('#b-size').value?'':'eReq')];
+  if(!r.every(Boolean))return;
+  cur=$('#b-cur').value || 'INR';
+
+  const userPayload = {
+    name: $('#r-name').value.trim(),
+    email: $('#r-em').value.trim().toLowerCase(),
+    password: $('#r-pw').value,
+    biz_name: $('#b-name').value.trim(),
+    biz_type: $('#b-type').value || '',
+    biz_size: $('#b-size').value || '',
+    country: $('#b-co').value || 'INR',
+    currency: cur
+  };
+
+  const createBtn = $('#create');
+  createBtn.disabled = true;
+  createBtn.textContent = 'Creating Account...';
+
+  try {
+    const res = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(userPayload)
+    });
+    const data = await res.json();
+    if(!res.ok || !data.ok){
+      alert(data.detail || 'Registration failed');
+      return;
+    }
+    user = data.user;
+    user.currency = cur;
+    try {
+      localStorage.removeItem('hh_signed_out');
+      sessionStorage.setItem('hh_user', JSON.stringify(user));
+      localStorage.removeItem('hh_user');
+    } catch(e){}
+    toast('Account created & secured in Supabase Cloud ⚡');
+    show('ok');
+  } catch(err) {
+    alert('Error connecting to backend: ' + err.message);
+  } finally {
+    createBtn.disabled = false;
+    createBtn.textContent = T('create');
+  }
+};
+
+['s-dl','s-sp','s-sh'].forEach(id=>$('#'+id).oninput=e=>$('#v-'+id.slice(2)).textContent=e.target.value);
+$('#apply').onclick=()=>{
+  const a=$('#s-ex').value.trim()===''?0:Number($('#s-ex').value),d=Number($('#s-exd').value);
+  const bad=Number.isNaN(a)||a<0?'eAmt':a>0&&(!(d>=0&&d<=56))?'eRange':'';
+  err('ex',bad);
+  if(bad)return;
+  scen={inv:$('#s-inv').value,dl:+$('#s-dl').value,ex:a,exd:d,sp:+$('#s-sp').value,sup:$('#s-sup').value,sh:+$('#s-sh').value,pred:$('#s-pred').checked};
+  renderSi();
+};
+$('#reset').onclick=()=>{scen=null;sel=0;['s-dl','s-sp','s-sh'].forEach(i=>{$('#'+i).value=0;$('#v-'+i.slice(2)).textContent=0});$('#s-ex').value='';$('#s-pred').checked=false;err('ex','');renderSi()};
+
+/* ---------- Transaction Modal & CRUD Wiring (Supabase integrated) ---------- */
+const INCOME_CATEGORIES = [
+  { value: 'customer', label: 'Sales / Customer Invoice' },
+  { value: 'loan', label: 'Loan / Capital Inflow' },
+  { value: 'expense', label: 'Other Inflow / Refund' }
+];
+
+const EXPENSE_CATEGORIES = [
+  { value: 'supplier', label: 'Suppliers & Inventory' },
+  { value: 'expense', label: 'General Operating Expense' },
+  { value: 'payroll', label: 'Staff Salaries & Payroll' },
+  { value: 'loan', label: 'Bank Loan & EMI' }
+];
+
+function setTxDirection(dir) {
+  const isInc = dir === 'in';
+  $('#t-dir').value = isInc ? 'in' : 'out';
+  if(isInc) {
+    $('#t-tab-in').className = 'btn';
+    $('#t-tab-out').className = 'btn ghost';
+  } else {
+    $('#t-tab-out').className = 'btn';
+    $('#t-tab-in').className = 'btn ghost';
+  }
+  const cats = isInc ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
+  const currentVal = $('#t-cat').value;
+  $('#t-cat').innerHTML = cats.map(c => `<option value="${c.value}">${c.label}</option>`).join('');
+  if(cats.some(c => c.value === currentVal)) {
+    $('#t-cat').value = currentVal;
+  }
+  populateCustomerSelect();
+}
+
+function populateCustomerSelect(selectedCust) {
+  const custEl = $('#t-cust');
+  if(!custEl) return;
+  const opts = ['<option value="">None (Direct entry)</option>'];
+  if(Array.isArray(CU)) {
+    CU.forEach(c => {
+      opts.push(`<option value="${c.id}">${esc(c.n || c.name)}</option>`);
+    });
+  }
+  custEl.innerHTML = opts.join('');
+  if(selectedCust) custEl.value = selectedCust;
+}
+
+function dateToDay(dateStr) {
+  if (!dateStr) return 0;
+  const parts = dateStr.split('-');
+  if(parts.length !== 3) return 0;
+  const target = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  target.setHours(0, 0, 0, 0);
+  const diffMs = target.getTime() - today.getTime();
+  return Math.round(diffMs / (1000 * 60 * 60 * 24));
+}
+
+function dayToDate(dayOffset) {
+  const d = new Date();
+  d.setDate(d.getDate() + (Number(dayOffset) || 0));
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+function openAddTx(dir = 'in') {
+  $('#txForm').reset();
+  $('#t-id').value = '';
+  $('#txDlgTitle').textContent = dir === 'in' ? 'Add Income Transaction' : 'Add Expense Transaction';
+  $('#t-date').value = dayToDate(0);
+  $('#t-st').value = 'expected';
+  $('#t-method').value = 'UPI';
+  setTxDirection(dir);
+  $('#txDlg').showModal();
+}
+
+window.openEditTx = function(id) {
+  const t = TX.find(x => x.id === id);
+  if(!t) return;
+  $('#txForm').reset();
+  $('#t-id').value = t.id;
+  $('#txDlgTitle').textContent = 'Edit Transaction';
+  $('#t-name').value = t.name || t.n || '';
+  $('#t-amt').value = t.amount || t.a || '';
+  setTxDirection(t.dir || 'in');
+  if(t.ty || t.type) $('#t-cat').value = t.ty || t.type;
+  $('#t-date').value = dayToDate(t.day || 0);
+  $('#t-method').value = t.method || 'UPI';
+  $('#t-st').value = t.status || (t.st === 's' ? 'settled' : t.st === 'o' ? 'overdue' : 'expected');
+  populateCustomerSelect(t.cust || '');
+  $('#txDlg').showModal();
+};
+
+let txToDeleteId = null;
+window.confirmDeleteTx = function(id) {
+  const t = TX.find(x => x.id === id);
+  if(!t) return;
+  txToDeleteId = id;
+  $('#delMsg').textContent = `Are you sure you want to delete "${t.name || t.n}" (${money(t.amount || t.a)})?`;
+  $('#delDlg').showModal();
+};
+
+const confirmDelBtn = $('#btnConfirmDelete');
+if(confirmDelBtn) {
+  confirmDelBtn.onclick = async () => {
+    if(!txToDeleteId) return;
+    const tid = txToDeleteId;
+    await api(`/api/transactions/${tid}`, null, () => {
+      TX = TX.filter(t => t.id !== tid);
+    }, 'DELETE');
+    $('#delDlg').close();
+    txToDeleteId = null;
+    toast('Transaction deleted from Supabase ✓');
+    await syncTransactionsFromBackend();
+    await render();
+  };
+}
+
+$('#btnOpenAddTx').onclick = () => openAddTx('in');
+$('#btnOpenAddIncome').onclick = () => openAddTx('in');
+$('#btnOpenAddExpense').onclick = () => openAddTx('out');
+$('#t-tab-in').onclick = () => setTxDirection('in');
+$('#t-tab-out').onclick = () => setTxDirection('out');
+
+$('#txForm').onsubmit = async e => {
+  e.preventDefault();
+  const tid = $('#t-id').value.trim();
+  const dir = $('#t-dir').value || 'in';
+  const name = $('#t-name').value.trim();
+  const amt = Math.abs(parseInt($('#t-amt').value, 10)) || 0;
+  const cat = $('#t-cat').value || (dir === 'in' ? 'customer' : 'expense');
+  const dateVal = $('#t-date').value;
+  const day = dateToDay(dateVal);
+  const method = $('#t-method').value || 'UPI';
+  const status = $('#t-st').value || 'expected';
+  const cust = $('#t-cust').value.trim() || null;
+
+  if(!name || amt <= 0) {
+    alert('Please provide a valid description and an amount greater than 0.');
+    return;
+  }
+
+  const payload = {
+    name,
+    type: cat,
+    dir,
+    amount: amt,
+    day,
+    delay: 0,
+    cust,
+    status,
+    method
+  };
+
+  if(tid) {
+    // Edit existing transaction in Supabase
+    await api(`/api/transactions/${tid}`, payload, () => {
+      const idx = TX.findIndex(x => x.id === tid);
+      if(idx !== -1) {
+        TX[idx] = { ...TX[idx], ...payload, a: amt, n: name, st: status==='settled'?'s':status==='overdue'?'o':'e' };
+      }
+    }, 'PUT');
+    toast('Transaction updated in Supabase ⚡');
+  } else {
+    // Add new transaction to Supabase
+    await api('/api/transactions', payload, () => {
+      const fallbackId = 't' + Date.now();
+      TX.push(tx(fallbackId, name, cat, amt, day, 0, status==='settled'?'s':status==='overdue'?'o':'e'));
+    });
+    toast('Transaction added to Supabase ⚡');
+  }
+
+  $('#txDlg').close();
+  await syncTransactionsFromBackend();
+  await render();
+};
+
+/* ---------- Opening Cash Balance Management ---------- */
+function openEditBalance(){
+  $('#b-amt').value = OPEN;
+  $('#balDlg').showModal();
+}
+
+const btnEditBal = $('#btnEditBalance');
+if(btnEditBal) btnEditBal.onclick = openEditBalance;
+
+$('#balForm').onsubmit = async e => {
+  e.preventDefault();
+  const newBal = parseInt($('#b-amt').value, 10);
+  if(isNaN(newBal)){
+    alert('Please enter a valid balance amount.');
+    return;
+  }
+  const saveBtn = $('#btnSaveBalance');
+  const origText = saveBtn.textContent;
+  saveBtn.disabled = true;
+  saveBtn.textContent = 'Saving...';
+  try {
+    OPEN = newBal;
+    if(user){
+      user.cash_balance = newBal;
+      try { localStorage.setItem('hh_user', JSON.stringify(user)); } catch(err){}
+    }
+    await api('/api/balance', { balance: newBal, user_id: user ? user.id : null, email: user ? user.email : null }, () => null, 'POST');
+    $('#balDlg').close();
+    toast('Cash balance updated successfully ✓');
+    await render();
+  } catch(err) {
+    toast('Error updating balance: ' + (err.message || 'Network error'));
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.textContent = origText;
+  }
+};
+
+/* ---------- 2. Customer payment behaviour ---------- */
+const CM={c0:'kiran',c1:'anand',c2:'metro',c3:'lakshmi',c4:'sharma'};
+let CU=[{id:'kiran',n:'Kiran Enterprises',em:'accounts@kiran.example',ph:'+91 98000 00001',h:[0,0,1,0,2,0]},{id:'sharma',n:'Sharma Traders',em:'pay@sharma.example',ph:'+91 98000 00002',h:[0,3,0,5,2,4]},{id:'lakshmi',n:'Lakshmi Stores',em:'pay@lakshmi.example',ph:'+91 98000 00003',h:[4,9,6,12,8,11]},{id:'metro',n:'Metro Mart',em:'ap@metro.example',ph:'+91 98000 00004',h:[6,9,12,10,14,16]},{id:'anand',n:'Anand Retail',em:'pay@anand.example',ph:'+91 98000 00005',h:[15,22,30,28,35,41]}];
+const avgOf=h=>h.reduce((a,b)=>a+b,0)/h.length;
+const predDelay=id=>{const c=CU.find(c=>c.id===CM[id]);return c?Math.round(avgOf(c.h)):0};
+function behave(c){
+  const avg=avgOf(c.h),tr=avgOf(c.h.slice(-3))-avgOf(c.h.slice(0,3)),open=TX.filter(t=>CM[t.id]===c.id&&t.st!=='s'),od=open.some(t=>t.st==='o');
+  return{...c,avg,tr,open,od,ontime:c.h.filter(d=>d<=2).length/c.h.length*100,cls:od||avg>14?'over':avg>3?'late':'reg',out:open.reduce((s,t)=>s+t.a,0)};
+}
+const CLS={reg:['Regular','ok','#15803D'],late:['Late','wn','#F59E0B'],over:['Overdue','bd','#DC2626']};
+const spark=(h,c)=>`<svg class="spark" viewBox="0 0 ${h.length*12} 34" width="${h.length*12}" height="34" role="img" aria-label="Days late on recent invoices: ${h.join(', ')}">${h.map((d,i)=>{const v=Math.min(30,d*.8+2);return`<rect x="${i*12}" y="${32-v}" width="9" height="${v}" rx="2" fill="${c}"><title>${d} days late</title></rect>`}).join('')}</svg>`;
+
+async function renderCu(){
+  const cs = await api('/api/customers/behaviour', null, () => CU.map(behave));
+  // normalize property names from backend
+  const normCs = cs.map(c=>({
+    id: c.id,
+    n: c.n || c.name,
+    name: c.name || c.n,
+    em: c.em || c.email,
+    ph: c.ph || c.phone,
+    h: c.h || c.history || [],
+    avg: c.avg !== undefined ? c.avg : (c.avg_delay || 0),
+    tr: c.tr !== undefined ? c.tr : (c.trend === 'slower' ? 2 : c.trend === 'improving' ? -2 : 0),
+    ontime: c.ontime !== undefined ? c.ontime : (c.on_time_pct || 100),
+    cls: c.cls || (c.status === 'overdue' ? 'over' : c.status === 'late' ? 'late' : 'reg'),
+    out: c.out !== undefined ? c.out : (c.outstanding || 0),
+    open: TX.filter(t=>t.cust===c.id&&t.st!=='s')
+  }));
+
+  const n=k=>normCs.filter(c=>c.cls===k).length;
+  $('#cuCards').innerHTML=card('Regular payers',n('reg'),'','good')+card('Late payers',n('late'),'','warn')+card('Overdue',n('over'),'','bad')+card('Outstanding receivables',money(normCs.reduce((s,c)=>s+c.out,0)));
+  const ord={over:0,late:1,reg:2};
+  $('#cuList').innerHTML=normCs.sort((a,b)=>ord[a.cls]-ord[b.cls]).map(c=>{
+    const[lb,bd,col]=CLS[c.cls]||CLS.reg;
+    const has=c.out>0||c.open.length>0;
+    return`<article class="card cust ${c.cls}"><div class="between"><h3>${esc(c.n)}</h3><span class="badge ${bd}">${lb}</span></div><div class="row">${spark(c.h,col)}<div class="sub">Last ${c.h.length} invoices<br>${c.tr>1?'▲ paying slower':c.tr<-1?'▼ improving':'● steady'}</div></div><dl class="kv"><dt>Average delay</dt><dd>${Number(c.avg).toFixed(1)} days</dd><dt>Paid on time</dt><dd>${Math.round(c.ontime)}%</dd><dt>Outstanding</dt><dd>${money(c.out)}</dd></dl><div class="bar" aria-hidden="true"><i style="width:${c.ontime}%"></i></div><button class="btn ${c.cls==='reg'?'ghost':''} block" data-act="rem" data-id="${c.id}" ${has?'':'disabled'}>✉ ${has?'Send reminder':'No open invoice'}</button></article>`;
+  }).join('');
+  await renderLog();
+}
+
+/* ---------- 3. One-click communication ---------- */
+async function renderLog(){
+  const l = await api('/api/reminders', null, () => {
+    try{return JSON.parse(localStorage.getItem('hh_comms')||'[]')}catch{return[]}
+  });
+  $('#cuLog').innerHTML=l.length ? l.slice().reverse().map(r=>`<li><div><b>${esc(r.cust)}</b> · ${esc(r.ch)}<div class="sub">${esc(r.msg)}</div></div><div><span class="badge ${r.status==='Sent'?'ok':'wn'}">${esc(r.status)}</span><div class="sub">${new Date(r.ts).toLocaleString(LOC[lang])}</div></div></li>`).join('') : '<li class="sub">No messages yet. Use “Send reminder” on a customer card.</li>';
+}
+
+let remC=null,remI=null;
+function remText(){
+  const c=remC,inv=remI,ch=$('#remCh').value,tone=$('#remTone').value,a=money(inv.a),no=(inv.n||inv.name).split('—').pop().trim(),od=-inv.day;
+  const base=od>0?`${a} for ${no} was due ${od} day${od>1?'s':''} ago (${dt(inv.day)}).`:`${a} for ${no} is due on ${dt(inv.day)}.`;
+  if(ch==='SMS')return tone==='firm'?`${user.biz}: ${base} Please pay today or reply with the date you will pay. Thank you.`:`Hi ${c.n}, a friendly reminder from ${user.biz}: ${base} Thank you!`;
+  return tone==='firm'?`Dear ${c.n} team,\n\nThis is a follow-up from ${user.biz}. ${base} Please arrange payment at the earliest, or let us know the date you will pay.\n\nRegards,\n${user.name}`:`Hi ${c.n} team,\n\nA gentle reminder from ${user.biz}: ${base} If you have already paid, please ignore this note.\n\nThank you!\n${user.name}`;
+}
+function openRem(id){
+  remC=CU.find(c=>c.id===id)||{id,n:id,em:id+'@example.com',ph:'+919800000000'};
+  remI=TX.filter(t=>(CM[t.id]===id||t.cust===id)&&t.st!=='s').sort((a,b)=>a.day-b.day)[0];
+  if(!remI){
+    remI={a:50000,n:'Invoice',day:0};
+  }
+  $('#remTo').textContent=`To: ${remC.n} · ${remC.em} · ${remC.ph}`;
+  $('#remTone').value=remI.day<0?'firm':'friendly';
+  $('#remMsg').value=remText();
+  $('#remNote').textContent=backendOnline?'Connected to FastAPI: messages are saved to SQLite hh.db and sent via email/SMS if credentials are configured in .env.':'Demo mode: backend offline, logged locally.';
+  $('#remDlg').showModal();
+}
+$('#remCh').onchange=$('#remTone').onchange=()=>$('#remMsg').value=remText();
+$('#remSend').onclick=async()=>{
+  const msg=$('#remMsg').value.trim();
+  if(!msg)return toast('Write a message first');
+  const ch=$('#remCh').value;
+  const rec=await api('/api/reminders',{customer_id:remC.id,channel:ch.toLowerCase(),message:msg},()=>({id:Date.now(),ts:Date.now(),cust:remC.n,ch,msg,status:'Demo: logged'}));
+  try{
+    const l=JSON.parse(localStorage.getItem('hh_comms')||'[]');
+    l.push({id:rec.id,ts:rec.ts,cust:rec.cust,ch:rec.ch,msg:rec.msg,status:rec.status});
+    localStorage.setItem('hh_comms',JSON.stringify(l.slice(-100)));
+  }catch(e){}
+  $('#remDlg').close();
+  await renderLog();
+  toast(rec.status==='Sent'?'Reminder sent ✓':rec.status);
+};
+
+/* ---------- 5. Seasonal & festival forecasting ---------- */
+const MN=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const FEST={0:'Sankranti / Pongal',2:'Holi',3:'Ugadi / Baisakhi',7:'Onam / Ganesh Chaturthi',9:'Dussehra',10:'Diwali',11:'Christmas & New Year'};
+const SG=[1.05,.9,1.15,1.05,.85,.8,.85,1,1.05,1.2,1.45,1.2];
+const _rev=i=>Math.round(800000*(1+.012*i)*SG[(10+i)%12]*(1+.04*Math.sin(i*2.3)));
+const HN=24,SH=Array.from({length:HN},(_,i)=>({i,m:(10+i)%12,y:2024+Math.floor((10+i)/12),rev:_rev(i),exp:Math.round(.55*_rev(i)+.25*_rev(i+1)+100000)}));
+function seasonal(n=6,u=1){
+  const fit=k=>{const xs=SH.map(r=>r.i),ys=SH.map(r=>r[k]),mx=(HN-1)/2,my=avgOf(ys),b=xs.reduce((s,x,j)=>s+(x-mx)*(ys[j]-my),0)/xs.reduce((s,x)=>s+(x-mx)**2,0),a=my-b*mx,idx=Array(12).fill(0),c=Array(12).fill(0);SH.forEach(r=>{idx[r.m]+=r[k]/(a+b*r.i);c[r.m]++});return{a,b,idx:idx.map((v,m)=>v/c[m])}};
+  const R=fit('rev'),E=fit('exp'),out=Array.from({length:n},(_,j)=>{const i=HN+j,m=(10+i)%12,tr=R.a+R.b*i,te=E.a+E.b*i;return{i,m,y:2024+Math.floor((10+i)/12),rev:Math.round(tr*(1+(R.idx[m]-1)*u)),exp:Math.round(te*E.idx[m]),trR:Math.round(tr),trE:Math.round(te),idx:R.idx[m]}});
+  out.E=E;return out;
+}
+const SIDX=(()=>{const a=[];seasonal(12).forEach(r=>a[r.m]=r.idx);return a})();
+
+function seChart(fc){
+  const all=[...SH.map(r=>({...r,f:0})),...fc.map(r=>({...r,f:1}))],W=720,Hh=260,l=50,b=34,t=16,mx=Math.max(...all.flatMap(r=>[r.rev||r.income,r.exp||r.expenses]))*1.1,bw=(W-l-8)/all.length,Y=v=>t+(1-v/mx)*(Hh-t-b);
+  let h=`<svg viewBox="0 0 ${W} ${Hh}" style="width:100%;height:auto" role="img" aria-label="Monthly income and expenses, history and forecast">`;
+  for(let k=0;k<=4;k++){const v=mx*k/4;h+=`<line x1="${l}" x2="${W-8}" y1="${Y(v)}" y2="${Y(v)}" stroke="#E3E9ED"/><text x="${l-6}" y="${Y(v)+4}" text-anchor="end" font-size="10">${cm(v)}</text>`}
+  all.forEach((r,j)=>{
+    const rev = r.rev || r.income;
+    const exp = r.exp || r.expenses;
+    const x=l+j*bw;
+    h+=`<rect x="${x+1}" y="${Y(rev)}" width="${bw-3}" height="${Hh-b-Y(rev)}" rx="2" fill="${r.f?'#5eead4':'#0F766E'}" ${r.f?'stroke="#0F766E" stroke-dasharray="3 2"':''}><title>${MN[r.m]} ${r.y}${FEST[r.m]?' · '+FEST[r.m]:''}: income ${money(rev)}, expenses ${money(exp)}</title></rect>`;
+    if(FEST[r.m]&&(r.idx||r.seasonal_index||SIDX[r.m])>1.1)h+=`<text x="${x+bw/2}" y="${Y(rev)-4}" text-anchor="middle" font-size="11">★</text>`;
+    if(j%3===0)h+=`<text x="${x+bw/2}" y="${Hh-18}" text-anchor="middle" font-size="9.5">${MN[r.m]}</text>`;
+  });
+  $('#seChart').innerHTML=h+`<polyline fill="none" stroke="#102A43" stroke-width="2.5" points="${all.map((r,j)=>(l+j*bw+bw/2)+','+Y(r.exp||r.expenses)).join(' ')}"/></svg>`;
+}
+
+async function renderSe(){
+  const u=+$('#s-u').value/100,n=+$('#se-n').value;
+  $('#v-u').textContent=Math.round(u*100);
+  
+  // Call FastAPI backend seasonal endpoint
+  const rows = await api(`/api/forecast/seasonal?months=${n}&uplift=${u}`, null, () => {
+    let cash = OPEN;
+    return seasonal(n,u).map(r=>{cash+=r.rev-r.exp;return{...r,income:r.rev,expenses:r.exp,net:r.rev-r.exp,cash_after:cash,seasonal_index:r.idx}});
+  });
+
+  const low=rows.reduce((a,r)=>(r.cash_after||r.cash)<(a.cash_after||a.cash)?r:a, rows[0]);
+  const best=rows.reduce((a,r)=>(r.net||r.income-r.expenses)>(a.net||a.income-a.expenses)?r:a, rows[0]);
+  const lowCash = low.cash_after !== undefined ? low.cash_after : low.cash;
+
+  $('#seCards').innerHTML=card('Forecast income',money(rows.reduce((s,r)=>s+(r.income||r.rev),0)),`next ${n} months`,'good')+card('Forecast expenses',money(rows.reduce((s,r)=>s+(r.expenses||r.exp),0)))+card('Lowest cash after a month',money(lowCash),`${MN[low.m]} ${low.y}`,lowCash<0?'bad':lowCash<SAFE?'warn':'good')+card('Best month',MN[best.m]+' '+best.y,`net ${money(best.net||best.income-best.expenses)}`);
+  seChart(rows);
+  const fest=rows.map((r,j)=>({r,j})).filter(({r})=>FEST[r.m]&&(r.seasonal_index||r.idx)>1.05);
+  $('#seFest').innerHTML=fest.length?fest.map(({r,j})=>{
+    const rev = r.income || r.rev;
+    const trR = r.trR || 1000000;
+    const pm=(r.m+11)%12;
+    return`<article class="card mint"><h3>🎉 ${FEST[r.m]} · ${MN[r.m]} ${r.y}</h3><p>Income ≈ <b>${money(rev)}</b> (<span class="${rev>=trR?'pos':'neg'}">${rev>=trR?'+':'−'}${money(Math.abs(rev-trR))}</span> vs standard month).</p><p class="sub">Stock-up inventory spending lands in ${MN[pm]}: keep extra cash reserves ready.</p></article>`;
+  }).join(''):'<div class="card sub">No major festival peak in this horizon.</div>';
+  $('#seBody').innerHTML=rows.map(r=>{
+    const rev = r.income || r.rev;
+    const exp = r.expenses || r.exp;
+    const net = r.net !== undefined ? r.net : (rev - exp);
+    const cash = r.cash_after !== undefined ? r.cash_after : r.cash;
+    return`<tr><td>${MN[r.m]} ${r.y}</td><td>${FEST[r.m]||'—'}</td><td>${money(rev)}</td><td>${money(exp)}</td><td class="${net>=0?'pos':'neg'}">${money(net)}</td><td class="${cash<0?'neg':cash<SAFE?'warn':''}">${money(cash)}</td></tr>`;
+  }).join('');
+}
+
+/* ---------- 4. Financial health score ---------- */
+const HL={liq:'Liquidity buffer',short:'Shortage risk',coll:'Collections quality',obl:'Obligation coverage',trend:'Cash trend',margin:'Profit margin',liquidity:'Liquidity buffer',shortage_risk:'Shortage risk',collections:'Collections quality',obligation_cover:'Obligation coverage',cash_trend:'Cash trend'};
+function health(){
+  const b=fc(TX),m=mt(b),cs=CU.map(behave),rec=TX.filter(t=>t.ty==='cust'&&t.st!=='s').reduce((s,t)=>s+t.a,0)||1,outs=TX.filter(t=>t.dir==='out'&&t.st!=='s').reduce((s,t)=>s+t.a,0)||1,
+  risk=cs.reduce((s,c)=>s+c.out*(c.cls==='over'?1:c.cls==='late'?.5:0),0),l6=SH.slice(-6),mg=1-l6.reduce((s,r)=>s+r.exp,0)/l6.reduce((s,r)=>s+r.rev,0);
+  const comps=[['liq',20,clamp(m.lo/SAFE)],['short',20,1-clamp(m.z/3)],['coll',20,1-clamp(risk/rec*1.5)],['obl',15,clamp((OPEN+rec)/outs/1.2)],['trend',10,clamp(.5+(b[H]-OPEN)/OPEN)],['margin',15,clamp(mg/.25)]].map(([k,w,s])=>({k,w,s}));
+  const score=Math.round(comps.reduce((a,c)=>a+c.w*c.s,0));
+  return{score,comps,m,risk,mg,b,cs,label:score>=75?'Strong':score>=55?'Stable':score>=35?'Needs attention':'At risk'};
+}
+
+async function renderHl(){
+  const h = await api('/api/health-score', null, () => health());
+  const col=h.score<35?'#DC2626':h.score<55?'#F59E0B':h.score<75?'#0F766E':'#15803D',arc='M20 100A80 80 0 0 1 180 100';
+  $('#hlGauge').innerHTML=`<svg class="gauge" viewBox="0 0 200 125" role="img" aria-label="Health score ${h.score} out of 100"><path d="${arc}" fill="none" stroke="#E3E9ED" stroke-width="16" stroke-linecap="round"/><path id="gArc" class="garc" d="${arc}" fill="none" stroke="${col}" stroke-width="16" stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="251.3"/><text x="100" y="92" text-anchor="middle" class="gscore" fill="${col}" style="fill:${col}">${h.score}</text><text x="100" y="114" text-anchor="middle" font-size="11">out of 100</text></svg><h2 style="color:${col}">${h.label}</h2><div class="say" style="justify-content:center"><span class="ol" data-s="56">${ollie(56,h.score<55)}</span><div class="bubble">${h.score<55?'Let’s fix the weak spots below.':h.score<75?'Decent, a few things to tighten.':'Great shape. Keep it up!'}</div></div>`;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{const a=$('#gArc');if(a)a.style.strokeDashoffset=251.3*(1-h.score/100)}));
+  
+  const comps = h.comps || [];
+  $('#hlComps').innerHTML='<h3>What makes up the score</h3>'+comps.map(c=>{
+    const p=Math.round(c.s*100),cc=c.s<.4?'#DC2626':c.s<.7?'#F59E0B':'#15803D';
+    const label = HL[c.k] || c.name || c.k;
+    return`<div class="comp"><div class="between"><span>${label}</span><b>${Math.round(c.w*c.s)} / ${c.w}</b></div><div class="bar" role="img" aria-label="${label} ${p}%"><i style="width:${p}%;background:${cc}"></i></div></div>`;
+  }).join('');
+  
+  const R={
+    liq:['Lowest projected balance is '+money(h.m?h.m.lo:0)+', against safety limit '+money(SAFE)+'. Rebuild cash buffer.','fx','Compare fixes'],
+    short:['Cash is below zero in '+(h.m?h.m.z:0)+' of the next 8 weeks. Pull cash forward or postpone bills.','si','Run what-ifs'],
+    coll:['Overdue/late invoices exist. Send 1-click reminders now.','cu','Send reminders'],
+    obl:['Upcoming payments are close to expected inflows. Negotiate terms.','fx','See supplier fix'],
+    trend:['Projected cash at horizon end is lower than today.','ov','Open overview'],
+    margin:['Operating expenses absorb a large share of revenue. Review recurring costs.','se','See forecast']
+  };
+  
+  const recsHtml = comps.filter(c=>c.s<.65).sort((a,b)=>b.w*(1-b.s)-a.w*(1-a.s)).map(c=>{
+    const key = c.k === 'liquidity' ? 'liq' : c.k === 'shortage_risk' ? 'short' : c.k === 'collections' ? 'coll' : c.k;
+    const rInfo = R[key] || [c.name || key, 'ov', 'View'];
+    return `<li><div><b>${HL[key]||c.name||key}</b><div class="sub">${rInfo[0]}</div></div><div><button class="btn ghost sm" data-go="${rInfo[1]}">${rInfo[2]}</button></div></li>`;
+  }).join('');
+  
+  $('#hlRecs').innerHTML=recsHtml || '<li class="sub">No weak spots. Nice work!</li>';
+}
+
+/* ---------- 6. What-if prediction text ---------- */
+function predText(b,md,mm,mb,sc){
+  const el=$('#siPred'),ch=JSON.stringify(b)!==JSON.stringify(md);
+  el.innerHTML=!ch?`<p><b>Baseline prediction:</b> lowest balance <b>${money(mb.lo)}</b> in Week ${b.indexOf(mb.lo)}; ${mb.z?`below zero for <b>${mb.z}</b> week${mb.z>1?'s':''}`:'never below zero'}. Pick a quick scenario above or change the controls.</p>`
+  :`<p><b>Prediction:</b> with this scenario your balance drops to <b>${money(mm.lo)}</b> in Week ${md.indexOf(mm.lo)} (${sg(mm.lo-mb.lo)} vs baseline) and stays below zero for <b>${mm.z}</b> week${mm.z===1?'':'s'}${mm.z!==mb.z?` (was ${mb.z})`:''}. ${mm.lo<SAFE?`To stay above your safety limit you would need about <b>${money(SAFE-mm.lo)}</b> more cash.`:'You would stay above your safety limit.'}${sc.pred?' Delays are predicted from each customer’s payment history.':''}</p>`;
+}
+function preset(n){
+  $('#reset').click();
+  if(n===1){
+    const cu = TX.find(t=>(t.ty==='cust'||t.type==='customer'||t.dir==='in') && t.st!=='s' && t.status!=='settled');
+    if(cu && $('#s-inv')) $('#s-inv').value = cu.id;
+    $('#s-dl').value = 20;
+    $('#v-dl').textContent = 20;
+  }
+  if(n===2){
+    $('#s-sp').value = 20;
+    $('#v-sp').textContent = 20;
+  }
+  if(n===3){
+    $('#s-ex').value = 200000;
+    $('#s-exd').value = 14;
+  }
+  if(n===4){
+    $('#s-pred').checked = true;
+  }
+  $('#apply').click();
+}
+
+/* ---------- 1. AI chatbot (floating) ---------- */
+const CH=[];let greeted=false;
+const addMsg=(who,html)=>{const d=document.createElement('div');d.className='msg '+who;d.innerHTML=html;const b=$('#chatMsgs');b.appendChild(d);b.scrollTop=b.scrollHeight;return d};
+
+async function ask(q){
+  q=q.trim();
+  if(!q)return;
+  addMsg('me',esc(q));
+  const typ=addMsg('bot','<span class="dots" aria-label="Ollie is typing"><i></i><i></i><i></i></span>');
+  
+  // Call FastAPI chat endpoint
+  const res=await api('/api/chat', {message:q, history:CH.slice(-8)}, () => ({
+    reply: "Ollie is offline. Please ensure FastAPI is running on " + API_BASE,
+    html: "FastAPI backend is offline. Run: <code>uvicorn main:app --reload --port 8000</code>"
+  }));
+
+  typ.innerHTML = res.html || esc(res.reply||'No answer received.').replace(/\n/g,'<br>');
+  $('#chatMsgs').scrollTop=1e6;
+  CH.push({role:'user',content:q},{role:'assistant',content:typ.textContent});
+}
+
+function toggleChat(){
+  const c=$('#chat');
+  c.classList.toggle('hide');
+  if(!c.classList.contains('hide')){
+    updateApiBadge(backendOnline);
+    if(!greeted){
+      greeted=true;
+      addMsg('bot',`Hi ${esc(user.name.split(' ')[0])}! I’m Ollie 🦉 Ask me about your cash flow, customers or planning.`);
+      $('#chatChips').innerHTML=['When will I run short of cash?','Which customers pay late?','How is my financial health?','What should I do about the shortage?','Plan for Diwali'].map(q=>`<button class="chip" data-act="q" data-q="${q}">${q}</button>`).join('');
+    }
+    $('#chatIn').focus();
+  }
+}
+$('#chatForm').onsubmit=e=>{e.preventDefault();const v=$('#chatIn').value;$('#chatIn').value='';ask(v)};
+
+/* ---------- 7. User & Business Profile ---------- */
+async function renderPr(){
+  if(!user) return;
+
+  // Refresh user data from Supabase backend if connected
+  if(backendOnline && user.email){
+    try {
+      const fetched = await api('/api/users/by-email/' + encodeURIComponent(user.email), null, () => null);
+      if(fetched && fetched.email){
+        user = {...user, ...fetched};
+        try { localStorage.setItem('hh_user', JSON.stringify(user)); } catch(e){}
+      }
+    } catch(e){}
+  }
+
+  const name = user.name || 'Owner';
+  const biz = user.biz || user.biz_name || 'Sharma Provision Store';
+  const email = user.email || 'user@example.com';
+  const uid = user.id || user.uid || 'u_active';
+  const bizType = user.biz_type || user.type || 'Retail Provision & Groceries';
+  const bizSize = user.biz_size || user.size || 'Micro (1-5 employees)';
+  const country = user.country || 'India (INR)';
+  const userCur = user.currency || cur || 'INR';
+
+  // Update top bar
+  $('#bizName').textContent = biz;
+  $('#who').textContent = name + ' · ' + email;
+
+  // Update Profile Card
+  $('#prName').textContent = name;
+  $('#prBiz').textContent = biz;
+  $('#prEmail').textContent = email;
+  $('#prId').textContent = uid;
+  $('#prTypeBadge').textContent = bizType;
+  $('#prType').textContent = bizType;
+  $('#prSize').textContent = bizSize;
+  $('#prCountry').textContent = country;
+  $('#prCur').textContent = userCur + ' (' + (userCur==='INR'?'₹':userCur==='USD'?'$':userCur==='EUR'?'€':userCur==='GBP'?'£':userCur) + ')';
+
+  // Avatar Initials
+  const initials = name.split(' ').map(s=>s[0]).filter(Boolean).slice(0,2).join('').toUpperCase();
+  $('#prAvatar').textContent = initials || '🏪';
+
+  // Live DB status
+  let dbStatus = null;
+  if(backendOnline){
+    try {
+      dbStatus = await api('/api/db/status', null, () => null);
+    } catch(e){}
+  }
+  const isSupa = dbStatus ? dbStatus.is_supabase : false;
+  const sBadge = $('#prCloudBadge');
+  if(sBadge){
+    if(isSupa){
+      sBadge.className = 'badge ok';
+      sBadge.textContent = '⚡ Supabase Cloud Connected';
+    } else if(backendOnline){
+      sBadge.className = 'badge wn';
+      sBadge.textContent = '💾 SQLite Local Fallback';
+    } else {
+      sBadge.className = 'badge';
+      sBadge.textContent = '📴 Offline Browser Mode';
+    }
+  }
+  $('#prDbProvider').textContent = isSupa ? '⚡ Supabase PostgreSQL (Cloud)' : (backendOnline ? '💾 SQLite Database (Local: hh.db)' : '📴 Browser LocalStorage');
+
+  // Pre-fill Edit form
+  $('#prEditName').value = name;
+  $('#prEditBiz').value = biz;
+
+  if($('#prEditType')){
+    const selType = $('#prEditType');
+    let matched = false;
+    for(let i=0; i<selType.options.length; i++){
+      if(selType.options[i].value === bizType || selType.options[i].text.toLowerCase().includes(bizType.toLowerCase())){
+        selType.selectedIndex = i;
+        matched = true;
+        break;
+      }
+    }
+    if(!matched && bizType){
+      const opt = document.createElement('option');
+      opt.value = bizType;
+      opt.textContent = bizType;
+      selType.prepend(opt);
+      selType.selectedIndex = 0;
+    }
+  }
+
+  if($('#prEditSize')){
+    const selSize = $('#prEditSize');
+    let matched = false;
+    for(let i=0; i<selSize.options.length; i++){
+      if(selSize.options[i].value === bizSize || selSize.options[i].text.toLowerCase().includes(bizSize.toLowerCase())){
+        selSize.selectedIndex = i;
+        matched = true;
+        break;
+      }
+    }
+    if(!matched && bizSize){
+      const opt = document.createElement('option');
+      opt.value = bizSize;
+      opt.textContent = bizSize;
+      selSize.prepend(opt);
+      selSize.selectedIndex = 0;
+    }
+  }
+
+  if($('#prEditCur')) $('#prEditCur').value = userCur;
+
+  // Live telemetry 4-stat cards
+  const totalTx = TX.length;
+  const totalCust = CU.length;
+  $('#prStats').innerHTML = 
+    card('Total Transactions', totalTx, 'Live tracked flow items', 'good') +
+    card('Active Customers', totalCust, 'Registered party ledgers', 'good') +
+    card('Cash Safety Buffer', money(SAFE), 'Protected minimum floor', 'warn') +
+    card('Cloud Database', isSupa ? 'Connected' : 'Offline / Local', isSupa ? 'Supabase cloud synced' : 'Local mirror mode', isSupa ? 'good' : 'warn');
+}
+
+// Profile Event Listeners
+function setupProfileHandlers(){
+  const btnGoProf = $('#btnGoProfile');
+  if(btnGoProf) btnGoProf.onclick = () => setTab('pr');
+
+  const btnAddTxOv = $('#btnOpenAddTxOv');
+  if(btnAddTxOv) btnAddTxOv.onclick = () => openAddTx('in');
+
+  const btnCopyId = $('#btnCopyUserId');
+  if(btnCopyId) {
+    btnCopyId.onclick = async () => {
+      const idText = $('#prId').textContent;
+      try {
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          await navigator.clipboard.writeText(idText);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = idText;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        toast('Copied User ID: ' + idText);
+      } catch(e) {
+        toast('User ID: ' + idText);
+      }
+    };
+  }
+
+  const btnSync = $('#btnSyncFromCloud');
+  if(btnSync) {
+    btnSync.onclick = async () => {
+      btnSync.disabled = true;
+      btnSync.textContent = '🔄 Syncing...';
+      try {
+        if(backendOnline){
+          await syncTransactionsFromBackend();
+          if(user && user.email){
+            const fresh = await api('/api/users/by-email/' + encodeURIComponent(user.email), null, () => null);
+            if(fresh && fresh.email){
+              user = {...user, ...fresh};
+              localStorage.setItem('hh_user', JSON.stringify(user));
+            }
+          }
+        }
+        await renderPr();
+        toast('✓ Synced latest data from Supabase Cloud!');
+      } catch(err){
+        toast('Sync failed: ' + (err.message || 'Network error'));
+      } finally {
+        btnSync.disabled = false;
+        btnSync.textContent = '🔄 Refresh from Supabase';
+      }
+    };
+  }
+
+  const btnProfLogout = $('#btnProfileLogout');
+  if(btnProfLogout) {
+    btnProfLogout.onclick = () => {
+      $('#logout').click();
+    };
+  }
+
+  const prForm = $('#prEditForm');
+  if(prForm) {
+    prForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const saveBtn = $('#btnSaveProfile');
+      const origText = saveBtn.textContent;
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Saving to Supabase...';
+      try {
+        const updatedProfile = {
+          name: $('#prEditName').value.trim(),
+          email: user.email,
+          biz_name: $('#prEditBiz').value.trim(),
+          biz_type: $('#prEditType').value,
+          biz_size: $('#prEditSize').value,
+          currency: $('#prEditCur').value,
+          country: user.country || 'India (INR)'
+        };
+        
+        const res = await api('/api/users', updatedProfile, () => ({id: user.id || 'u_local', ok: true, user: updatedProfile}));
+        
+        user.name = updatedProfile.name;
+        user.biz = updatedProfile.biz_name;
+        user.biz_name = updatedProfile.biz_name;
+        user.biz_type = updatedProfile.biz_type;
+        user.biz_size = updatedProfile.biz_size;
+        user.currency = updatedProfile.currency;
+        cur = user.currency || 'INR';
+        
+        if(res && res.id) user.id = res.id;
+        if(res && res.user && res.user.id) user.id = res.user.id;
+        
+        localStorage.setItem('hh_user', JSON.stringify(user));
+        $('#bizName').textContent = user.biz;
+        $('#who').textContent = user.name + ' · ' + user.email;
+        
+        toast('✓ Profile updated & saved to Supabase!');
+        await renderPr();
+      } catch(err) {
+        toast('Error saving profile: ' + (err.message || 'Network error'));
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = origText;
+      }
+    };
+  }
+}
+setupProfileHandlers();
+
+/* ---------- wiring ---------- */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-act]');
+  if(t){
+    const a=t.dataset.act;
+    if(a==='rem')openRem(t.dataset.id);
+    else if(a==='chat')toggleChat();
+    else if(a==='pre')preset(+t.dataset.n);
+    else if(a==='q')ask(t.dataset.q);
+    else if(a==='clrlog'){
+      api('/api/reminders', null, () => localStorage.removeItem('hh_comms'), 'DELETE').then(()=>renderLog());
+    }
+  }
+  if(e.target.closest('#chat [data-go]')&&innerWidth<600)$('#chat').classList.add('hide');
+});
+['#s-u','#se-n'].forEach(s=>$(s).oninput=renderSe);
+
+$$('.ol').forEach(e=>e.innerHTML=ollie(+e.dataset.s));
+applyLang();
+
+// Initialize backend connection and check for active authenticated session
+(async function initAppSession(){
+  const online = await checkBackend();
+
+  // If user explicitly signed out, show login page
+  if(localStorage.getItem('hh_signed_out') === '1'){
+    user = null;
+    updateAuthNav(false);
+    show('login');
+    return;
+  }
+
+  // Restore authenticated session only if explicitly stored in sessionStorage or persistent remember-me in localStorage
+  try {
+    let savedUser = sessionStorage.getItem('hh_user');
+    if(!savedUser && localStorage.getItem('hh_remember') === '1') {
+      savedUser = localStorage.getItem('hh_user');
+    }
+    if(savedUser) {
+      const parsed = JSON.parse(savedUser);
+      if(parsed && parsed.email) {
+        user = parsed;
+        cur = user.currency || 'INR';
+      }
+    }
+  } catch(e){}
+
+  if(user){
+    if(online) await syncTransactionsFromBackend();
+    let savedTab = 'ov';
+    try { savedTab = localStorage.getItem('hh_tab') || 'ov'; } catch(e){}
+    await enterApp(savedTab);
+  } else {
+    // Unauthenticated visitor: show landing view with Login & Sign Up options
+    updateAuthNav(false);
+    show('landing');
+  }
+})();
+
+const badgeEl = $('#apiStatusBadge');
+if(badgeEl) {
+  badgeEl.style.cursor = 'pointer';
+  badgeEl.addEventListener('click', async () => {
+    if(!backendOnline){
+      toast('FastAPI offline · running in browser demo mode');
+      return;
+    }
+    const st = await api('/api/db/status', null, () => null);
+    if(st){
+      const dbLabel = st.is_supabase ? '⚡ Cloud: Supabase' : '● Local: SQLite (hh.db)';
+      const txCnt = st.counts ? st.counts.transactions : 0;
+      toast('DB: ' + dbLabel + ' · ' + txCnt + ' transactions active');
+    }
+  });
+}
+</script>
+</body>
+</html>
