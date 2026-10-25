@@ -1,15 +1,13 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "HisaabHoshiyaar/main.py",
-      "use": "@vercel/python"
+  "functions": {
+    "api/index.py": {
+      "includeFiles": "HisaabHoshiyaar/**"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "HisaabHoshiyaar/main.py"
+      "source": "/(.*)",
+      "destination": "/api/index"
     }
   ]
 }
