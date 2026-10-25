@@ -309,3 +309,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <div align="center">
   <b>HisaabHoshiyaar</b> — <i>Be Smart With Money. Stay Ahead of Tomorrow.</i> 🦉
 </div>
+#   S r u j a n a _ h a c k a t h o n 2 0 2 6 _ H i s a a b H o s h i y a a r  
+ 
