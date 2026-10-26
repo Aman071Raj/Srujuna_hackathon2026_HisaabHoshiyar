@@ -501,17 +501,34 @@ class DatabaseManager:
                 for c in SEED_CUSTOMERS
             ]
             with sqlite_conn:
-                sqlite_conn.executemany("INSERT INTO customers VALUES (?,?,?,?,?)", seed_cust)
+                sqlite_conn.executemany(
+                    "INSERT INTO customers (id, name, email, phone, history) VALUES (?,?,?,?,?)",
+                    seed_cust,
+                )
 
         # Seed SQLite transactions if empty
         cur = sqlite_conn.execute("SELECT COUNT(*) FROM transactions")
         if cur.fetchone()[0] == 0:
             seed_tx = [
-                (t["id"], t["name"], t["cust"], t["type"], t["dir"], t["amount"], t["day"], t["delay"], t["status"])
+                (
+                    t["id"],
+                    t["name"],
+                    t["cust"],
+                    t["type"],
+                    t["dir"],
+                    t["amount"],
+                    t["day"],
+                    t["delay"],
+                    t["status"],
+                    t.get("note"),
+                )
                 for t in SEED_TRANSACTIONS
             ]
             with sqlite_conn:
-                sqlite_conn.executemany("INSERT INTO transactions VALUES (?,?,?,?,?,?,?,?,?)", seed_tx)
+                sqlite_conn.executemany(
+                    "INSERT INTO transactions (id, name, cust, type, dir, amount, day, delay, status, note) VALUES (?,?,?,?,?,?,?,?,?,?)",
+                    seed_tx,
+                )
 
     def _seed_supabase_if_empty(self):
         # Check customers
@@ -644,7 +661,7 @@ class DatabaseManager:
                 try:
                     with sqlite_conn:
                         sqlite_conn.execute(
-                            "INSERT OR REPLACE INTO transactions VALUES (?,?,?,?,?,?,?,?,?,?)",
+                            "INSERT OR REPLACE INTO transactions (id, name, cust, type, dir, amount, day, delay, status, note) VALUES (?,?,?,?,?,?,?,?,?,?)",
                             (tid, name, clean_cust, clean_type, clean_dir, clean_amt, clean_day, clean_delay, clean_status, note_val),
                         )
                 except Exception:
@@ -656,7 +673,7 @@ class DatabaseManager:
         # Fallback / Local SQLite
         with sqlite_conn:
             sqlite_conn.execute(
-                "INSERT INTO transactions VALUES (?,?,?,?,?,?,?,?,?,?)",
+                "INSERT INTO transactions (id, name, cust, type, dir, amount, day, delay, status, note) VALUES (?,?,?,?,?,?,?,?,?,?)",
                 (tid, name, clean_cust, clean_type, clean_dir, clean_amt, clean_day, clean_delay, clean_status, note_val),
             )
         return True
